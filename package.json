@@ -1,0 +1,25 @@
+{
+  "name": "edgecom-test",
+  "version": "1.0.0",
+  "description": "A frontend test project.",
+  "private": true,
+  "scripts": {
+    "dashboard:dev": "pnpm --filter dashboard dev",
+    "dashboard:build": "pnpm --filter dashboard build",
+    "dashboard:preview": "pnpm --filter dashboard preview",
+    "dashboard:test": "pnpm --filter dashboard test",
+    "prepare": "husky",
+    "test": "xo"
+  },
+  "author": "Lauigi <glbrt.liu@gmail.com>",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "3.7.4",
+    "xo": "^1.2.3"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
