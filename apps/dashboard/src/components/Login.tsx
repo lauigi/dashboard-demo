@@ -1,22 +1,20 @@
-export function AuthForm({
-  actionText,
-  onSubmit,
-  status,
-  afterSubmit,
-}: {
-  actionText: string;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  status: 'pending' | 'idle' | 'success' | 'error';
-  afterSubmit?: React.ReactNode;
-}) {
+import { useMutation } from '../hooks/useMutation';
+import { auth } from '@/lib/auth';
+
+export function Login() {
+  const loginMutation = useMutation({
+    fn: auth.login,
+  });
+
   return (
     <div className="fixed inset-0 bg-white dark:bg-black flex items-start justify-center p-8">
       <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold mb-4">{actionText}</h1>
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            onSubmit(e);
+            const formData = new FormData(e.target as HTMLFormElement);
+            loginMutation.mutate(formData.get('email') as string);
           }}
           className="space-y-4"
         >
@@ -45,11 +43,10 @@ export function AuthForm({
           <button
             type="submit"
             className="w-full bg-cyan-600 text-white rounded-sm py-2 font-black uppercase"
-            disabled={status === 'pending'}
+            disabled={loginMutation.status === 'pending'}
           >
-            {status === 'pending' ? '...' : actionText}
+            {loginMutation.status === 'pending' ? '...' : 'Login'}
           </button>
-          {afterSubmit ? afterSubmit : null}
         </form>
       </div>
     </div>

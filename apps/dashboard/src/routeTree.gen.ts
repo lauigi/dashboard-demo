@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root';
 import { Route as AuthedRouteImport } from './routes/_authed';
-import { Route as IndexRouteImport } from './routes/index';
+import { Route as AuthedIndexRouteImport } from './routes/_authed.index';
 import { Route as AuthedEditRouteImport } from './routes/_authed.edit';
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs';
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request';
@@ -24,10 +24,10 @@ const AuthedRoute = AuthedRouteImport.update({
   id: '/_authed',
   getParentRoute: () => rootRouteImport,
 } as any);
-const IndexRoute = IndexRouteImport.update({
+const AuthedIndexRoute = AuthedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthedRoute,
 } as any);
 const AuthedEditRoute = AuthedEditRouteImport.update({
   id: '/edit',
@@ -71,8 +71,8 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
   '/edit': typeof AuthedEditRoute;
+  '/': typeof AuthedIndexRoute;
   '/demo/api/names': typeof DemoApiNamesRoute;
   '/demo/start/api-request': typeof DemoStartApiRequestRoute;
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute;
@@ -82,8 +82,8 @@ export interface FileRoutesByFullPath {
   '/demo/start/ssr': typeof DemoStartSsrIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
   '/edit': typeof AuthedEditRoute;
+  '/': typeof AuthedIndexRoute;
   '/demo/api/names': typeof DemoApiNamesRoute;
   '/demo/start/api-request': typeof DemoStartApiRequestRoute;
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute;
@@ -94,9 +94,9 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
-  '/': typeof IndexRoute;
   '/_authed': typeof AuthedRouteWithChildren;
   '/_authed/edit': typeof AuthedEditRoute;
+  '/_authed/': typeof AuthedIndexRoute;
   '/demo/api/names': typeof DemoApiNamesRoute;
   '/demo/start/api-request': typeof DemoStartApiRequestRoute;
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute;
@@ -108,8 +108,8 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
     | '/edit'
+    | '/'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -119,8 +119,8 @@ export interface FileRouteTypes {
     | '/demo/start/ssr';
   fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
     | '/edit'
+    | '/'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -130,9 +130,9 @@ export interface FileRouteTypes {
     | '/demo/start/ssr';
   id:
     | '__root__'
-    | '/'
     | '/_authed'
     | '/_authed/edit'
+    | '/_authed/'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -143,7 +143,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
   AuthedRoute: typeof AuthedRouteWithChildren;
   DemoApiNamesRoute: typeof DemoApiNamesRoute;
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute;
@@ -163,12 +162,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    '/': {
-      id: '/';
+    '/_authed/': {
+      id: '/_authed/';
       path: '/';
       fullPath: '/';
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
+      preLoaderRoute: typeof AuthedIndexRouteImport;
+      parentRoute: typeof AuthedRoute;
     };
     '/_authed/edit': {
       id: '/_authed/edit';
@@ -231,17 +230,18 @@ declare module '@tanstack/react-router' {
 
 interface AuthedRouteChildren {
   AuthedEditRoute: typeof AuthedEditRoute;
+  AuthedIndexRoute: typeof AuthedIndexRoute;
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedEditRoute: AuthedEditRoute,
+  AuthedIndexRoute: AuthedIndexRoute,
 };
 
 const AuthedRouteWithChildren =
   AuthedRoute._addFileChildren(AuthedRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
