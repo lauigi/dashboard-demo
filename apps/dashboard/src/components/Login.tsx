@@ -1,5 +1,5 @@
+import { useRouteContext, useRouter } from '@tanstack/react-router';
 import { useMutation } from '../hooks/useMutation';
-import { auth } from '@/lib/auth';
 import { Button } from '@workspace/ui/components/button';
 import {
   Card,
@@ -8,10 +8,17 @@ import {
   CardFooter,
   CardContent,
 } from '@workspace/ui/components/card';
+import { loginFn } from '@/routes/_authed';
 
 export function Login() {
+  const router = useRouter();
   const loginMutation = useMutation({
-    fn: auth.login,
+    fn: loginFn,
+    onSuccess: async () => {
+      await router.invalidate();
+      router.navigate({ to: '/' });
+      return;
+    },
   });
 
   return (
@@ -23,9 +30,13 @@ export function Login() {
         <CardContent>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
               const formData = new FormData(e.target as HTMLFormElement);
-              loginMutation.mutate(formData.get('email') as string);
+              loginMutation.mutate({
+                data: {
+                  email: formData.get('email') as string,
+                  password: formData.get('password') as string,
+                },
+              });
             }}
             className="space-y-4"
           >

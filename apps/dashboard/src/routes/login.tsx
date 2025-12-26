@@ -3,7 +3,7 @@ import { Login } from '~/components/Login';
 
 export const Route = createFileRoute('/login')({
   beforeLoad: ({ context }) => {
-    if (context.user.isAuthenticated) {
+    if (context.user) {
       throw redirect({
         to: '/',
       });

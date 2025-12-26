@@ -10,16 +10,25 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 import Header from '../components/Header';
 
 import appCss from '../styles.css?url';
-import { auth } from '@/lib/auth';
+import { createServerFn } from '@tanstack/react-start';
+import { useAppSession } from '@/utils/session';
+
+const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
+  const session = await useAppSession();
+  if (!session.data.userEmail) {
+    return null;
+  }
+  return {
+    email: session.data.userEmail,
+  };
+});
 
 export const Route = createRootRoute({
-  beforeLoad() {
-    const { isAuthenticated, email } = auth;
+  beforeLoad: async () => {
+    const user = await fetchUser();
+    console.log(1111111, user);
     return {
-      user: {
-        isAuthenticated,
-        email,
-      },
+      user,
     };
   },
   head: () => ({
@@ -43,14 +52,12 @@ export const Route = createRootRoute({
     ],
   }),
 
-  shellComponent: RootComponent,
+  component: RootComponent,
 });
 
 function RootComponent() {
   return (
     <RootDocument>
-      {/* providers go here */}
-      {/* all your route components render inside <Outlet /> */}
       <Outlet />
     </RootDocument>
   );
