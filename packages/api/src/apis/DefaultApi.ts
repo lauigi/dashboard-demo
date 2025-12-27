@@ -16,6 +16,7 @@ import * as runtime from '../runtime';
 import type {
   Article,
   ArticlesGet200Response,
+  TagPost400Response,
   TagPost401Response,
   TagsGet200Response,
 } from '../models/index';
@@ -24,6 +25,8 @@ import {
   ArticleToJSON,
   ArticlesGet200ResponseFromJSON,
   ArticlesGet200ResponseToJSON,
+  TagPost400ResponseFromJSON,
+  TagPost400ResponseToJSON,
   TagPost401ResponseFromJSON,
   TagPost401ResponseToJSON,
   TagsGet200ResponseFromJSON,

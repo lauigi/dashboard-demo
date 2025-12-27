@@ -14,6 +14,7 @@ src/models/ArticlesGet200Response.ts
 src/models/Author.ts
 src/models/Tag.ts
 src/models/TagIdDelete200Response.ts
+src/models/TagPost400Response.ts
 src/models/TagPost401Response.ts
 src/models/TagsGet200Response.ts
 src/models/index.ts

@@ -1,0 +1,462 @@
+openapi: 3.1.0
+info:
+  title: Default module
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /tag:
+    post:
+      summary: Create a tag
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: name
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          headers: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: ''
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security:
+        - basic jwt: []
+  /tag/{id}:
+    put:
+      summary: Update a tag
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          headers: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: ''
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security:
+        - basic jwt: []
+    delete:
+      summary: Delete a tag
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+          headers: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: ''
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security:
+        - basic jwt: []
+  /article:
+    post:
+      summary: Create an article
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        $ref: '#/components/schemas/TagID'
+                    required:
+                      - id
+              required:
+                - title
+                - content
+                - tags
+            example:
+              title: '{{$lorem.sentence}}'
+              content: '{{$lorem.paragraphs}}'
+              tags:
+                - id: '{{$string.nanoid}}'
+                - id: '{{$string.nanoid}}'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+          headers: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: ''
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security:
+        - basic jwt: []
+  /article/{id}:
+    put:
+      summary: Update an article
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        $ref: '#/components/schemas/TagID'
+                    required:
+                      - id
+              required:
+                - title
+                - content
+                - tags
+            example:
+              title: '{{$lorem.sentence}}'
+              content: '{{$lorem.paragraphs}}'
+              tags:
+                - id: '{{$string.nanoid}}'
+                - id: '{{$string.nanoid}}'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+          headers: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: ''
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security:
+        - basic jwt: []
+    delete:
+      summary: Delete an article
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+          headers: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+          description: ''
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security:
+        - basic jwt: []
+    get:
+      summary: Get a article
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+          headers: {}
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security: []
+  /articles:
+    get:
+      summary: Get article list
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: lastID
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: author
+          in: query
+          description: filter by author name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasMore:
+                    type: boolean
+                  lastID:
+                    $ref: '#/components/schemas/ArticleID'
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+                required:
+                  - hasMore
+                  - lastID
+                  - articles
+          headers: {}
+      security: []
+  /tags:
+    get:
+      summary: Get tag list
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: lastID
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: filter by tag name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                  lastID:
+                    $ref: '#/components/schemas/TagID'
+                  hasMore:
+                    type: boolean
+                required:
+                  - tags
+                  - lastID
+                  - hasMore
+          headers: {}
+        '404':
+          $ref: '#/components/responses/Not found'
+          description: ''
+      security: []
+webhooks: {}
+components:
+  schemas:
+    Article:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ArticleID'
+        title:
+          type: string
+        content:
+          type: string
+        username:
+          type: string
+        userID:
+          $ref: '#/components/schemas/UserID'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        createTime:
+          type: string
+        updateTime:
+          type: string
+        isDeleted:
+          type: boolean
+      required:
+        - id
+        - title
+        - content
+        - tags
+        - createTime
+        - updateTime
+        - isDeleted
+        - username
+        - userID
+    ArticleID: &ref_0
+      type: string
+    UserID: *ref_0
+    Tag:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/TagID'
+        name:
+          type: string
+      required:
+        - id
+        - name
+    TagID: *ref_0
+    Author:
+      type: object
+      properties:
+        username:
+          type: string
+        userID:
+          $ref: '#/components/schemas/UserID'
+      required:
+        - username
+        - userID
+  responses:
+    Unauthorized:
+      description: ''
+      content:
+        application/json:
+          schema:
+            title: ''
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+    Not found:
+      description: ''
+      content:
+        application/json:
+          schema:
+            title: ''
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+  securitySchemes:
+    basic jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+servers: []
+security: []

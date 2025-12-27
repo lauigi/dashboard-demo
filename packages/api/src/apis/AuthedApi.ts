@@ -18,6 +18,7 @@ import type {
   ArticlePostRequest,
   Tag,
   TagIdDelete200Response,
+  TagPost400Response,
   TagPost401Response,
 } from '../models/index';
 import {
@@ -29,6 +30,8 @@ import {
   TagToJSON,
   TagIdDelete200ResponseFromJSON,
   TagIdDelete200ResponseToJSON,
+  TagPost400ResponseFromJSON,
+  TagPost400ResponseToJSON,
   TagPost401ResponseFromJSON,
   TagPost401ResponseToJSON,
 } from '../models/index';
