@@ -1,8 +1,11 @@
 packages:
-  - 'packages/*'
-  - 'apps/*'
-ignoredBuiltDependencies:
-  - unrs-resolver
+  - packages/*
+  - apps/*
+
 catalog:
   react: ^19.2.0
   react-dom: ^19.2.0
+
+ignoredBuiltDependencies:
+  - esbuild
+  - unrs-resolver

@@ -1,4 +1,4 @@
-import { useRouteContext, useRouter } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 import { useMutation } from '../hooks/useMutation';
 import { Button } from '@workspace/ui/components/button';
 import {
@@ -14,10 +14,12 @@ export function Login() {
   const router = useRouter();
   const loginMutation = useMutation({
     fn: loginFn,
-    onSuccess: async () => {
-      await router.invalidate();
-      router.navigate({ to: '/' });
-      return;
+    onSuccess: async (ctx) => {
+      if (!ctx.data?.error) {
+        await router.invalidate();
+        router.navigate({ to: '/' });
+        return;
+      }
     },
   });
 
@@ -30,6 +32,7 @@ export function Login() {
         <CardContent>
           <form
             onSubmit={(e) => {
+              e.preventDefault();
               const formData = new FormData(e.target as HTMLFormElement);
               loginMutation.mutate({
                 data: {

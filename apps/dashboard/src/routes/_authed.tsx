@@ -6,7 +6,16 @@ import { useAppSession } from '~/utils/session';
 export const loginFn = createServerFn({ method: 'POST' })
   .inputValidator((d: { email: string; password: string }) => d)
   .handler(async ({ data }) => {
+    if (!data.email) {
+      return {
+        error: true,
+        userNotFound: true,
+        message: 'placeholder',
+      };
+    }
     const user = { email: data.email };
+    // Check the email and password here
+    // But for the demo, all allow through
     const session = await useAppSession();
     await session.update({
       userEmail: user.email,

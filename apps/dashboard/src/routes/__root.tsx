@@ -12,6 +12,8 @@ import Header from '../components/Header';
 import appCss from '../styles.css?url';
 import { createServerFn } from '@tanstack/react-start';
 import { useAppSession } from '@/utils/session';
+import { DefaultCatchBoundary } from '@/components/DefaultCatchBoundary';
+import { NotFound } from '@/components/NotFound';
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
   const session = await useAppSession();
@@ -51,7 +53,14 @@ export const Route = createRootRoute({
       },
     ],
   }),
-
+  errorComponent: (props) => {
+    return (
+      <RootDocument>
+        <DefaultCatchBoundary {...props} />
+      </RootDocument>
+    );
+  },
+  notFoundComponent: () => <NotFound />,
   component: RootComponent,
 });
 
