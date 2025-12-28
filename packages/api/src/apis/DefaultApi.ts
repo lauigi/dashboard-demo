@@ -83,7 +83,7 @@ export interface DefaultApiInterface {
    * @summary Get article list
    * @param {string} [lastID]
    * @param {number} [limit]
-   * @param {string} [author] filter by author name
+   * @param {string} [author] filter by author email
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApiInterface

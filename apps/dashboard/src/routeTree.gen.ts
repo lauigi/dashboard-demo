@@ -20,7 +20,7 @@ import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.se
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
 import { Route as ApiTagChar123TagIDChar125RouteImport } from './routes/api/tag.{-$tagID}'
-import { Route as ApiArticleArticleIDRouteImport } from './routes/api/article.$articleID'
+import { Route as ApiArticleChar123ArticleIDChar125RouteImport } from './routes/api/article.{-$articleID}'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
@@ -81,11 +81,12 @@ const ApiTagChar123TagIDChar125Route =
     path: '/api/tag/{-$tagID}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiArticleArticleIDRoute = ApiArticleArticleIDRouteImport.update({
-  id: '/api/article/$articleID',
-  path: '/api/article/$articleID',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const ApiArticleChar123ArticleIDChar125Route =
+  ApiArticleChar123ArticleIDChar125RouteImport.update({
+    id: '/api/article/{-$articleID}',
+    path: '/api/article/{-$articleID}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -114,7 +115,7 @@ export interface FileRoutesByFullPath {
   '/api/articles': typeof ApiArticlesRoute
   '/api/tags': typeof ApiTagsRoute
   '/': typeof AuthedIndexRoute
-  '/api/article/$articleID': typeof ApiArticleArticleIDRoute
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
   '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -131,7 +132,7 @@ export interface FileRoutesByTo {
   '/api/articles': typeof ApiArticlesRoute
   '/api/tags': typeof ApiTagsRoute
   '/': typeof AuthedIndexRoute
-  '/api/article/$articleID': typeof ApiArticleArticleIDRoute
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
   '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -150,7 +151,7 @@ export interface FileRoutesById {
   '/api/articles': typeof ApiArticlesRoute
   '/api/tags': typeof ApiTagsRoute
   '/_authed/': typeof AuthedIndexRoute
-  '/api/article/$articleID': typeof ApiArticleArticleIDRoute
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
   '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -169,7 +170,7 @@ export interface FileRouteTypes {
     | '/api/articles'
     | '/api/tags'
     | '/'
-    | '/api/article/$articleID'
+    | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -186,7 +187,7 @@ export interface FileRouteTypes {
     | '/api/articles'
     | '/api/tags'
     | '/'
-    | '/api/article/$articleID'
+    | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -204,7 +205,7 @@ export interface FileRouteTypes {
     | '/api/articles'
     | '/api/tags'
     | '/_authed/'
-    | '/api/article/$articleID'
+    | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -221,7 +222,7 @@ export interface RootRouteChildren {
   LogoutRoute: typeof LogoutRoute
   ApiArticlesRoute: typeof ApiArticlesRoute
   ApiTagsRoute: typeof ApiTagsRoute
-  ApiArticleArticleIDRoute: typeof ApiArticleArticleIDRoute
+  ApiArticleChar123ArticleIDChar125Route: typeof ApiArticleChar123ArticleIDChar125Route
   ApiTagChar123TagIDChar125Route: typeof ApiTagChar123TagIDChar125Route
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -311,11 +312,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTagChar123TagIDChar125RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/article/$articleID': {
-      id: '/api/article/$articleID'
-      path: '/api/article/$articleID'
-      fullPath: '/api/article/$articleID'
-      preLoaderRoute: typeof ApiArticleArticleIDRouteImport
+    '/api/article/{-$articleID}': {
+      id: '/api/article/{-$articleID}'
+      path: '/api/article/{-$articleID}'
+      fullPath: '/api/article/{-$articleID}'
+      preLoaderRoute: typeof ApiArticleChar123ArticleIDChar125RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/ssr/': {
@@ -368,7 +369,8 @@ const rootRouteChildren: RootRouteChildren = {
   LogoutRoute: LogoutRoute,
   ApiArticlesRoute: ApiArticlesRoute,
   ApiTagsRoute: ApiTagsRoute,
-  ApiArticleArticleIDRoute: ApiArticleArticleIDRoute,
+  ApiArticleChar123ArticleIDChar125Route:
+    ApiArticleChar123ArticleIDChar125Route,
   ApiTagChar123TagIDChar125Route: ApiTagChar123TagIDChar125Route,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,

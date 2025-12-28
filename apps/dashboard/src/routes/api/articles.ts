@@ -20,7 +20,7 @@ export const Route = createFileRoute('/api/articles')({
         let targetArticles = [...articleList];
         if (author) {
           targetArticles = articleList.filter(
-            ({ username }) => username === author,
+            ({ userEmail }) => userEmail === author,
           );
         }
         const currentPageOfArticles = targetArticles.slice(

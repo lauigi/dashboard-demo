@@ -22,6 +22,8 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
   }
   return {
     email: session.data.userEmail,
+    id: session.data.userID,
+    isAdmin: session.data.isAdmin,
   };
 });
 

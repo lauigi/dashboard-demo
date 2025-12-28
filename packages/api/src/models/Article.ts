@@ -50,7 +50,7 @@ export interface Article {
    * @type {string}
    * @memberof Article
    */
-  username: string;
+  userEmail: string;
   /**
    *
    * @type {string}
@@ -90,7 +90,7 @@ export function instanceOfArticle(value: object): value is Article {
   if (!('id' in value) || value['id'] === undefined) return false;
   if (!('title' in value) || value['title'] === undefined) return false;
   if (!('content' in value) || value['content'] === undefined) return false;
-  if (!('username' in value) || value['username'] === undefined) return false;
+  if (!('userEmail' in value) || value['userEmail'] === undefined) return false;
   if (!('userID' in value) || value['userID'] === undefined) return false;
   if (!('tags' in value) || value['tags'] === undefined) return false;
   if (!('createTime' in value) || value['createTime'] === undefined)
@@ -116,7 +116,7 @@ export function ArticleFromJSONTyped(
     id: json['id'],
     title: json['title'],
     content: json['content'],
-    username: json['username'],
+    userEmail: json['userEmail'],
     userID: json['userID'],
     tags: (json['tags'] as Array<any>).map(TagFromJSON),
     createTime: json['createTime'],
@@ -141,7 +141,7 @@ export function ArticleToJSONTyped(
     id: value['id'],
     title: value['title'],
     content: value['content'],
-    username: value['username'],
+    userEmail: value['userEmail'],
     userID: value['userID'],
     tags: (value['tags'] as Array<any>).map(TagToJSON),
     createTime: value['createTime'],

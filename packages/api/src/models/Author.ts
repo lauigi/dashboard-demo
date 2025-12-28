@@ -24,7 +24,7 @@ export interface Author {
    * @type {string}
    * @memberof Author
    */
-  username: string;
+  userEmail: string;
   /**
    *
    * @type {string}
@@ -37,7 +37,7 @@ export interface Author {
  * Check if a given object implements the Author interface.
  */
 export function instanceOfAuthor(value: object): value is Author {
-  if (!('username' in value) || value['username'] === undefined) return false;
+  if (!('userEmail' in value) || value['userEmail'] === undefined) return false;
   if (!('userID' in value) || value['userID'] === undefined) return false;
   return true;
 }
@@ -54,7 +54,7 @@ export function AuthorFromJSONTyped(
     return json;
   }
   return {
-    username: json['username'],
+    userEmail: json['userEmail'],
     userID: json['userID'],
   };
 }
@@ -72,7 +72,7 @@ export function AuthorToJSONTyped(
   }
 
   return {
-    username: value['username'],
+    userEmail: value['userEmail'],
     userID: value['userID'],
   };
 }

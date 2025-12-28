@@ -15,6 +15,8 @@ export const GENERAL_MESSAGE = {
   [STATUS_CODES.notFound]: 'Not found',
 };
 
+export const APP_TZ = tz('America/Toronto');
+
 faker.seed(42);
 
 const pickOne = <T>(list: T[]) => list[Math.floor(Math.random() * list.length)];
@@ -32,23 +34,23 @@ export const userList = [
   'admin@example.com',
   'aaa@example.com',
   'bbb@example.com',
-].map((email, index) => ({
-  email,
+].map((userEmail, index) => ({
+  userEmail,
   id: faker.string.nanoid(),
   isAdmin: index === 0,
 }));
 
 const generateArticle = (): Article => {
-  const { email: username, id: userID } = pickOne(userList);
+  const { userEmail, id: userID } = pickOne(userList);
   return {
     id: faker.string.nanoid(),
     title: faker.lorem.sentence(),
     content: faker.lorem.paragraphs(),
-    username,
+    userEmail,
     userID,
     tags: pickNUnique(tagList, Math.floor(Math.random() * 5)),
-    createTime: formatISO(faker.date.past(), { in: tz('America/Toronto') }),
-    updateTime: formatISO(faker.date.recent(), { in: tz('America/Toronto') }),
+    createTime: formatISO(faker.date.past(), { in: APP_TZ }),
+    updateTime: formatISO(faker.date.recent(), { in: APP_TZ }),
     isDeleted: false,
   };
 };
