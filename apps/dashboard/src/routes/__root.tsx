@@ -14,6 +14,10 @@ import { createServerFn } from '@tanstack/react-start';
 import { useAppSession } from '@/utils/session';
 import { DefaultCatchBoundary } from '@/components/DefaultCatchBoundary';
 import { NotFound } from '@/components/NotFound';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@workspace/ui/components/sonner';
+
+const queryClient = new QueryClient();
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
   const session = await useAppSession();
@@ -68,7 +72,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
     </RootDocument>
   );
 }
@@ -80,6 +86,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <Toaster />
         <Header />
         {children}
         <TanStackDevtools

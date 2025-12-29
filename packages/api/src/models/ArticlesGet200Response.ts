@@ -29,16 +29,10 @@ import {
 export interface ArticlesGet200Response {
   /**
    *
-   * @type {boolean}
-   * @memberof ArticlesGet200Response
-   */
-  hasMore: boolean;
-  /**
-   *
    * @type {string}
    * @memberof ArticlesGet200Response
    */
-  lastID: string;
+  nextID: string;
   /**
    *
    * @type {Array<Article>}
@@ -53,8 +47,7 @@ export interface ArticlesGet200Response {
 export function instanceOfArticlesGet200Response(
   value: object,
 ): value is ArticlesGet200Response {
-  if (!('hasMore' in value) || value['hasMore'] === undefined) return false;
-  if (!('lastID' in value) || value['lastID'] === undefined) return false;
+  if (!('nextID' in value) || value['nextID'] === undefined) return false;
   if (!('articles' in value) || value['articles'] === undefined) return false;
   return true;
 }
@@ -73,8 +66,7 @@ export function ArticlesGet200ResponseFromJSONTyped(
     return json;
   }
   return {
-    hasMore: json['hasMore'],
-    lastID: json['lastID'],
+    nextID: json['nextID'],
     articles: (json['articles'] as Array<any>).map(ArticleFromJSON),
   };
 }
@@ -94,8 +86,7 @@ export function ArticlesGet200ResponseToJSONTyped(
   }
 
   return {
-    hasMore: value['hasMore'],
-    lastID: value['lastID'],
+    nextID: value['nextID'],
     articles: (value['articles'] as Array<any>).map(ArticleToJSON),
   };
 }

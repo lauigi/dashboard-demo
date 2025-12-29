@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { GENERAL_MESSAGE, STATUS_CODES, tagList } from './-mockUtils';
+import { delay, GENERAL_MESSAGE, STATUS_CODES, tagList } from './-mockUtils';
 import { Tag, TagPostRequest } from '@workspace/api';
 import { useAppSession } from '@/utils/session';
 import { faker } from '@faker-js/faker';
@@ -8,6 +8,7 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
   server: {
     handlers: {
       PUT: async ({ request, params }) => {
+        await delay(0.5);
         const tagID = params.tagID;
         if (!tagID) {
           return Response.json(
@@ -41,6 +42,7 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
         return Response.json(tag);
       },
       POST: async ({ request }) => {
+        await delay(0.5);
         const session = await useAppSession();
         if (!session.data.userEmail) {
           return Response.json(

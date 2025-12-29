@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { TagsGet200Response } from '@workspace/api';
-import { tagList } from './-mockUtils';
+import { delay, tagList } from './-mockUtils';
 
 export const Route = createFileRoute('/api/tags')({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        await delay(0.5);
         const url = new URL(request.url);
         const limit = Number(url.searchParams.get('limit'));
         const lastID = url.searchParams.get('lastID') as string;
@@ -21,14 +22,11 @@ export const Route = createFileRoute('/api/tags')({
         if (searchQuery) {
           targetTags = tagList.filter(({ name }) => name.includes(searchQuery));
         }
-        const currentPageOfTags = targetTags.slice(
-          startIndex,
-          limit ? startIndex + limit : targetTags.length,
-        );
+        const endingIndex = limit ? startIndex + limit : targetTags.length;
+        const currentPageOfTags = targetTags.slice(startIndex, endingIndex);
         const res: TagsGet200Response = {
           tags: currentPageOfTags,
-          hasMore: currentPageOfTags.length < targetTags.length,
-          lastID: currentPageOfTags[currentPageOfTags.length - 1].id,
+          nextID: targetTags[endingIndex]?.id ?? null,
         };
         return Response.json(res);
       },

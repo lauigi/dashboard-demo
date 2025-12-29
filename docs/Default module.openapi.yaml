@@ -325,17 +325,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  hasMore:
-                    type: boolean
-                  lastID:
-                    $ref: '#/components/schemas/ArticleID'
+                  nextID:
+                    anyOf:
+                      - $ref: '#/components/schemas/ArticleID'
+                      - type: 'null'
                   articles:
                     type: array
                     items:
                       $ref: '#/components/schemas/Article'
                 required:
-                  - hasMore
-                  - lastID
+                  - nextID
                   - articles
           headers: {}
       security: []
@@ -376,14 +375,13 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Tag'
-                  lastID:
-                    $ref: '#/components/schemas/TagID'
-                  hasMore:
-                    type: boolean
+                  nextID:
+                    anyOf:
+                      - $ref: '#/components/schemas/TagID'
+                      - type: 'null'
                 required:
                   - tags
-                  - lastID
-                  - hasMore
+                  - nextID
           headers: {}
         '404':
           $ref: '#/components/responses/Not found'

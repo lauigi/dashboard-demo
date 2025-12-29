@@ -38,13 +38,7 @@ export interface TagsGet200Response {
    * @type {string}
    * @memberof TagsGet200Response
    */
-  lastID: string;
-  /**
-   *
-   * @type {boolean}
-   * @memberof TagsGet200Response
-   */
-  hasMore: boolean;
+  nextID: string;
 }
 
 /**
@@ -54,8 +48,7 @@ export function instanceOfTagsGet200Response(
   value: object,
 ): value is TagsGet200Response {
   if (!('tags' in value) || value['tags'] === undefined) return false;
-  if (!('lastID' in value) || value['lastID'] === undefined) return false;
-  if (!('hasMore' in value) || value['hasMore'] === undefined) return false;
+  if (!('nextID' in value) || value['nextID'] === undefined) return false;
   return true;
 }
 
@@ -72,8 +65,7 @@ export function TagsGet200ResponseFromJSONTyped(
   }
   return {
     tags: (json['tags'] as Array<any>).map(TagFromJSON),
-    lastID: json['lastID'],
-    hasMore: json['hasMore'],
+    nextID: json['nextID'],
   };
 }
 
@@ -91,7 +83,6 @@ export function TagsGet200ResponseToJSONTyped(
 
   return {
     tags: (value['tags'] as Array<any>).map(TagToJSON),
-    lastID: value['lastID'],
-    hasMore: value['hasMore'],
+    nextID: value['nextID'],
   };
 }

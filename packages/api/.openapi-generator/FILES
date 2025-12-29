@@ -1,5 +1,6 @@
 .gitignore
 .npmignore
+.openapi-generator-ignore
 README.md
 package.json
 src/apis/AuthedApi.ts
@@ -18,4 +19,5 @@ src/models/TagPost401Response.ts
 src/models/TagsGet200Response.ts
 src/models/index.ts
 src/runtime.ts
+tsconfig.esm.json
 tsconfig.json

@@ -1,9 +1,5 @@
 # A Dashboard
 
-## Some notes
-
-- I did not implement a real user system. I only mock the login in LocalStorage
-
 ## Instructions
 
 ### To run this application

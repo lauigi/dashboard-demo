@@ -59,3 +59,7 @@ export const tagList = Array.from({ length: 1000 }, () => generateTag());
 export const articleList = Array.from({ length: 1000 }, () =>
   generateArticle(),
 );
+
+export const delay = (s: number) => {
+  return new Promise((resolve) => setTimeout(resolve, s * 1000));
+};

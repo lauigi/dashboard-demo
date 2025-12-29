@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import {
   APP_TZ,
   articleList,
+  delay,
   GENERAL_MESSAGE,
   STATUS_CODES,
   tagList,
@@ -15,6 +16,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
   server: {
     handlers: {
       GET: async ({ params }) => {
+        await delay(0.5);
         const articleID = params.articleID;
         if (!articleID) {
           return Response.json(
@@ -32,6 +34,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
         return Response.json(article);
       },
       PUT: async ({ request, params }) => {
+        await delay(0.5);
         const articleID = params.articleID;
         if (!articleID) {
           return Response.json(
@@ -76,6 +79,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
         return Response.json(article);
       },
       POST: async ({ request }) => {
+        await delay(0.5);
         const session = await useAppSession();
         if (!session.data.userEmail) {
           return Response.json(
