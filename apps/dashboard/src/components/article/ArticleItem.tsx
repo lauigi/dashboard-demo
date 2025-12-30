@@ -24,6 +24,9 @@ import {
 } from '@workspace/ui/components/alert-dialog';
 import { MouseEvent } from 'react';
 import DeleteConfirmBtn from './DeleteConfirmBtn';
+import HighlightText from '../HighlightText';
+import { useAtom } from 'jotai';
+import { titleKeywordAtom } from '@/utils/atoms';
 
 interface IArticle {
   article: Article;
@@ -31,12 +34,13 @@ interface IArticle {
 }
 export default function ArticleItem({
   article: { id, title, userEmail, tags },
-  ...props
+  style,
 }: IArticle) {
   const { user } = useRouteContext({ from: '__root__' });
   const navigate = useNavigate();
+  const [titleKeyword] = useAtom(titleKeywordAtom);
   return (
-    <Item variant="outline" className="my-2 flex-nowrap" {...props} asChild>
+    <Item variant="outline" className="my-2 flex-nowrap" style={style} asChild>
       <Link
         to={`/article/$articleID`}
         params={{
@@ -50,12 +54,12 @@ export default function ArticleItem({
       >
         <ItemContent>
           <ItemTitle className="whitespace-nowrap text-ellipsis overflow-hidden h-5">
-            {title}
+            <HighlightText text={title} keywords={[titleKeyword]} />
           </ItemTitle>
           <ItemDescription className="line-clamp-1 h-5.5">
             {userEmail}{' '}
             {tags.map(({ name, id }) => (
-              <Badge key={id} variant="secondary">
+              <Badge key={id} variant="secondary" className="ml-2">
                 {name}
               </Badge>
             ))}

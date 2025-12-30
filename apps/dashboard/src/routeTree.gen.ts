@@ -8,178 +8,188 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as LogoutRouteImport } from './routes/logout'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthedRouteImport } from './routes/_authed'
-import { Route as AuthedIndexRouteImport } from './routes/_authed.index'
-import { Route as ApiTagsRouteImport } from './routes/api/tags'
-import { Route as ApiArticlesRouteImport } from './routes/api/articles'
-import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
-import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
-import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
-import { Route as ApiTagChar123TagIDChar125RouteImport } from './routes/api/tag.{-$tagID}'
-import { Route as ApiArticleChar123ArticleIDChar125RouteImport } from './routes/api/article.{-$articleID}'
-import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
-import { Route as AuthedArticleArticleIDIndexRouteImport } from './routes/_authed.article.$articleID/index'
-import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
-import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
-import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
-import { Route as AuthedArticleArticleIDEditRouteImport } from './routes/_authed.article.$articleID/edit'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as LogoutRouteImport } from './routes/logout';
+import { Route as LoginRouteImport } from './routes/login';
+import { Route as AuthedRouteImport } from './routes/_authed';
+import { Route as AuthedIndexRouteImport } from './routes/_authed.index';
+import { Route as ApiTagsRouteImport } from './routes/api/tags';
+import { Route as ApiArticlesRouteImport } from './routes/api/articles';
+import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs';
+import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request';
+import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names';
+import { Route as ApiTagChar123TagIDChar125RouteImport } from './routes/api/tag.{-$tagID}';
+import { Route as ApiArticleChar123ArticleIDChar125RouteImport } from './routes/api/article.{-$articleID}';
+import { Route as AuthedArticleCreateRouteImport } from './routes/_authed.article/create';
+import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index';
+import { Route as AuthedArticleArticleIDIndexRouteImport } from './routes/_authed.article/$articleID.index';
+import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode';
+import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr';
+import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only';
+import { Route as AuthedArticleArticleIDEditRouteImport } from './routes/_authed.article/$articleID.edit';
 
 const LogoutRoute = LogoutRouteImport.update({
   id: '/logout',
   path: '/logout',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthedRoute = AuthedRouteImport.update({
   id: '/_authed',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthedIndexRoute = AuthedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthedRoute,
-} as any)
+} as any);
 const ApiTagsRoute = ApiTagsRouteImport.update({
   id: '/api/tags',
   path: '/api/tags',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiArticlesRoute = ApiArticlesRouteImport.update({
   id: '/api/articles',
   path: '/api/articles',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
   path: '/demo/start/server-funcs',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
   id: '/demo/start/api-request',
   path: '/demo/start/api-request',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   id: '/demo/api/names',
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiTagChar123TagIDChar125Route =
   ApiTagChar123TagIDChar125RouteImport.update({
     id: '/api/tag/{-$tagID}',
     path: '/api/tag/{-$tagID}',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 const ApiArticleChar123ArticleIDChar125Route =
   ApiArticleChar123ArticleIDChar125RouteImport.update({
     id: '/api/article/{-$articleID}',
     path: '/api/article/{-$articleID}',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
+const AuthedArticleCreateRoute = AuthedArticleCreateRouteImport.update({
+  id: '/article/create',
+  path: '/article/create',
+  getParentRoute: () => AuthedRoute,
+} as any);
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthedArticleArticleIDIndexRoute =
   AuthedArticleArticleIDIndexRouteImport.update({
     id: '/article/$articleID/',
     path: '/article/$articleID/',
     getParentRoute: () => AuthedRoute,
-  } as any)
+  } as any);
 const DemoStartSsrSpaModeRoute = DemoStartSsrSpaModeRouteImport.update({
   id: '/demo/start/ssr/spa-mode',
   path: '/demo/start/ssr/spa-mode',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoStartSsrFullSsrRoute = DemoStartSsrFullSsrRouteImport.update({
   id: '/demo/start/ssr/full-ssr',
   path: '/demo/start/ssr/full-ssr',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
   id: '/demo/start/ssr/data-only',
   path: '/demo/start/ssr/data-only',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthedArticleArticleIDEditRoute =
   AuthedArticleArticleIDEditRouteImport.update({
     id: '/article/$articleID/edit',
     path: '/article/$articleID/edit',
     getParentRoute: () => AuthedRoute,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/api/articles': typeof ApiArticlesRoute
-  '/api/tags': typeof ApiTagsRoute
-  '/': typeof AuthedIndexRoute
-  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
-  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/login': typeof LoginRoute;
+  '/logout': typeof LogoutRoute;
+  '/api/articles': typeof ApiArticlesRoute;
+  '/api/tags': typeof ApiTagsRoute;
+  '/': typeof AuthedIndexRoute;
+  '/article/create': typeof AuthedArticleCreateRoute;
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route;
+  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route;
+  '/demo/api/names': typeof DemoApiNamesRoute;
+  '/demo/start/api-request': typeof DemoStartApiRequestRoute;
+  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute;
+  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute;
+  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute;
+  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute;
+  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute;
+  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute;
+  '/demo/start/ssr': typeof DemoStartSsrIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/api/articles': typeof ApiArticlesRoute
-  '/api/tags': typeof ApiTagsRoute
-  '/': typeof AuthedIndexRoute
-  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
-  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/login': typeof LoginRoute;
+  '/logout': typeof LogoutRoute;
+  '/api/articles': typeof ApiArticlesRoute;
+  '/api/tags': typeof ApiTagsRoute;
+  '/': typeof AuthedIndexRoute;
+  '/article/create': typeof AuthedArticleCreateRoute;
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route;
+  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route;
+  '/demo/api/names': typeof DemoApiNamesRoute;
+  '/demo/start/api-request': typeof DemoStartApiRequestRoute;
+  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute;
+  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute;
+  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute;
+  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute;
+  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute;
+  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute;
+  '/demo/start/ssr': typeof DemoStartSsrIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/_authed': typeof AuthedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/api/articles': typeof ApiArticlesRoute
-  '/api/tags': typeof ApiTagsRoute
-  '/_authed/': typeof AuthedIndexRoute
-  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
-  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/_authed/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/_authed/article/$articleID/': typeof AuthedArticleArticleIDIndexRoute
-  '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  __root__: typeof rootRouteImport;
+  '/_authed': typeof AuthedRouteWithChildren;
+  '/login': typeof LoginRoute;
+  '/logout': typeof LogoutRoute;
+  '/api/articles': typeof ApiArticlesRoute;
+  '/api/tags': typeof ApiTagsRoute;
+  '/_authed/': typeof AuthedIndexRoute;
+  '/_authed/article/create': typeof AuthedArticleCreateRoute;
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route;
+  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route;
+  '/demo/api/names': typeof DemoApiNamesRoute;
+  '/demo/start/api-request': typeof DemoStartApiRequestRoute;
+  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute;
+  '/_authed/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute;
+  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute;
+  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute;
+  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute;
+  '/_authed/article/$articleID/': typeof AuthedArticleArticleIDIndexRoute;
+  '/demo/start/ssr/': typeof DemoStartSsrIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/login'
     | '/logout'
     | '/api/articles'
     | '/api/tags'
     | '/'
+    | '/article/create'
     | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/demo/api/names'
@@ -190,14 +200,15 @@ export interface FileRouteTypes {
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
     | '/article/$articleID'
-    | '/demo/start/ssr'
-  fileRoutesByTo: FileRoutesByTo
+    | '/demo/start/ssr';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/login'
     | '/logout'
     | '/api/articles'
     | '/api/tags'
     | '/'
+    | '/article/create'
     | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/demo/api/names'
@@ -208,7 +219,7 @@ export interface FileRouteTypes {
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
     | '/article/$articleID'
-    | '/demo/start/ssr'
+    | '/demo/start/ssr';
   id:
     | '__root__'
     | '/_authed'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/api/articles'
     | '/api/tags'
     | '/_authed/'
+    | '/_authed/article/create'
     | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/demo/api/names'
@@ -227,164 +239,173 @@ export interface FileRouteTypes {
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
     | '/_authed/article/$articleID/'
-    | '/demo/start/ssr/'
-  fileRoutesById: FileRoutesById
+    | '/demo/start/ssr/';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  AuthedRoute: typeof AuthedRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  LogoutRoute: typeof LogoutRoute
-  ApiArticlesRoute: typeof ApiArticlesRoute
-  ApiTagsRoute: typeof ApiTagsRoute
-  ApiArticleChar123ArticleIDChar125Route: typeof ApiArticleChar123ArticleIDChar125Route
-  ApiTagChar123TagIDChar125Route: typeof ApiTagChar123TagIDChar125Route
-  DemoApiNamesRoute: typeof DemoApiNamesRoute
-  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
-  DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
-  DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
-  DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute
-  DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute
-  DemoStartSsrIndexRoute: typeof DemoStartSsrIndexRoute
+  AuthedRoute: typeof AuthedRouteWithChildren;
+  LoginRoute: typeof LoginRoute;
+  LogoutRoute: typeof LogoutRoute;
+  ApiArticlesRoute: typeof ApiArticlesRoute;
+  ApiTagsRoute: typeof ApiTagsRoute;
+  ApiArticleChar123ArticleIDChar125Route: typeof ApiArticleChar123ArticleIDChar125Route;
+  ApiTagChar123TagIDChar125Route: typeof ApiTagChar123TagIDChar125Route;
+  DemoApiNamesRoute: typeof DemoApiNamesRoute;
+  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute;
+  DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute;
+  DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute;
+  DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute;
+  DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute;
+  DemoStartSsrIndexRoute: typeof DemoStartSsrIndexRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/logout': {
-      id: '/logout'
-      path: '/logout'
-      fullPath: '/logout'
-      preLoaderRoute: typeof LogoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/logout';
+      path: '/logout';
+      fullPath: '/logout';
+      preLoaderRoute: typeof LogoutRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authed': {
-      id: '/_authed'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/_authed';
+      path: '';
+      fullPath: '';
+      preLoaderRoute: typeof AuthedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authed/': {
-      id: '/_authed/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthedIndexRouteImport
-      parentRoute: typeof AuthedRoute
-    }
+      id: '/_authed/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof AuthedIndexRouteImport;
+      parentRoute: typeof AuthedRoute;
+    };
     '/api/tags': {
-      id: '/api/tags'
-      path: '/api/tags'
-      fullPath: '/api/tags'
-      preLoaderRoute: typeof ApiTagsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/api/tags';
+      path: '/api/tags';
+      fullPath: '/api/tags';
+      preLoaderRoute: typeof ApiTagsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/api/articles': {
-      id: '/api/articles'
-      path: '/api/articles'
-      fullPath: '/api/articles'
-      preLoaderRoute: typeof ApiArticlesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/api/articles';
+      path: '/api/articles';
+      fullPath: '/api/articles';
+      preLoaderRoute: typeof ApiArticlesRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/demo/start/server-funcs': {
-      id: '/demo/start/server-funcs'
-      path: '/demo/start/server-funcs'
-      fullPath: '/demo/start/server-funcs'
-      preLoaderRoute: typeof DemoStartServerFuncsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/start/server-funcs';
+      path: '/demo/start/server-funcs';
+      fullPath: '/demo/start/server-funcs';
+      preLoaderRoute: typeof DemoStartServerFuncsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/demo/start/api-request': {
-      id: '/demo/start/api-request'
-      path: '/demo/start/api-request'
-      fullPath: '/demo/start/api-request'
-      preLoaderRoute: typeof DemoStartApiRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/start/api-request';
+      path: '/demo/start/api-request';
+      fullPath: '/demo/start/api-request';
+      preLoaderRoute: typeof DemoStartApiRequestRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/demo/api/names': {
-      id: '/demo/api/names'
-      path: '/demo/api/names'
-      fullPath: '/demo/api/names'
-      preLoaderRoute: typeof DemoApiNamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/api/names';
+      path: '/demo/api/names';
+      fullPath: '/demo/api/names';
+      preLoaderRoute: typeof DemoApiNamesRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/api/tag/{-$tagID}': {
-      id: '/api/tag/{-$tagID}'
-      path: '/api/tag/{-$tagID}'
-      fullPath: '/api/tag/{-$tagID}'
-      preLoaderRoute: typeof ApiTagChar123TagIDChar125RouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/api/tag/{-$tagID}';
+      path: '/api/tag/{-$tagID}';
+      fullPath: '/api/tag/{-$tagID}';
+      preLoaderRoute: typeof ApiTagChar123TagIDChar125RouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/api/article/{-$articleID}': {
-      id: '/api/article/{-$articleID}'
-      path: '/api/article/{-$articleID}'
-      fullPath: '/api/article/{-$articleID}'
-      preLoaderRoute: typeof ApiArticleChar123ArticleIDChar125RouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/api/article/{-$articleID}';
+      path: '/api/article/{-$articleID}';
+      fullPath: '/api/article/{-$articleID}';
+      preLoaderRoute: typeof ApiArticleChar123ArticleIDChar125RouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/_authed/article/create': {
+      id: '/_authed/article/create';
+      path: '/article/create';
+      fullPath: '/article/create';
+      preLoaderRoute: typeof AuthedArticleCreateRouteImport;
+      parentRoute: typeof AuthedRoute;
+    };
     '/demo/start/ssr/': {
-      id: '/demo/start/ssr/'
-      path: '/demo/start/ssr'
-      fullPath: '/demo/start/ssr'
-      preLoaderRoute: typeof DemoStartSsrIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/start/ssr/';
+      path: '/demo/start/ssr';
+      fullPath: '/demo/start/ssr';
+      preLoaderRoute: typeof DemoStartSsrIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authed/article/$articleID/': {
-      id: '/_authed/article/$articleID/'
-      path: '/article/$articleID'
-      fullPath: '/article/$articleID'
-      preLoaderRoute: typeof AuthedArticleArticleIDIndexRouteImport
-      parentRoute: typeof AuthedRoute
-    }
+      id: '/_authed/article/$articleID/';
+      path: '/article/$articleID';
+      fullPath: '/article/$articleID';
+      preLoaderRoute: typeof AuthedArticleArticleIDIndexRouteImport;
+      parentRoute: typeof AuthedRoute;
+    };
     '/demo/start/ssr/spa-mode': {
-      id: '/demo/start/ssr/spa-mode'
-      path: '/demo/start/ssr/spa-mode'
-      fullPath: '/demo/start/ssr/spa-mode'
-      preLoaderRoute: typeof DemoStartSsrSpaModeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/start/ssr/spa-mode';
+      path: '/demo/start/ssr/spa-mode';
+      fullPath: '/demo/start/ssr/spa-mode';
+      preLoaderRoute: typeof DemoStartSsrSpaModeRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/demo/start/ssr/full-ssr': {
-      id: '/demo/start/ssr/full-ssr'
-      path: '/demo/start/ssr/full-ssr'
-      fullPath: '/demo/start/ssr/full-ssr'
-      preLoaderRoute: typeof DemoStartSsrFullSsrRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/start/ssr/full-ssr';
+      path: '/demo/start/ssr/full-ssr';
+      fullPath: '/demo/start/ssr/full-ssr';
+      preLoaderRoute: typeof DemoStartSsrFullSsrRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/demo/start/ssr/data-only': {
-      id: '/demo/start/ssr/data-only'
-      path: '/demo/start/ssr/data-only'
-      fullPath: '/demo/start/ssr/data-only'
-      preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/demo/start/ssr/data-only';
+      path: '/demo/start/ssr/data-only';
+      fullPath: '/demo/start/ssr/data-only';
+      preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_authed/article/$articleID/edit': {
-      id: '/_authed/article/$articleID/edit'
-      path: '/article/$articleID/edit'
-      fullPath: '/article/$articleID/edit'
-      preLoaderRoute: typeof AuthedArticleArticleIDEditRouteImport
-      parentRoute: typeof AuthedRoute
-    }
+      id: '/_authed/article/$articleID/edit';
+      path: '/article/$articleID/edit';
+      fullPath: '/article/$articleID/edit';
+      preLoaderRoute: typeof AuthedArticleArticleIDEditRouteImport;
+      parentRoute: typeof AuthedRoute;
+    };
   }
 }
 
 interface AuthedRouteChildren {
-  AuthedIndexRoute: typeof AuthedIndexRoute
-  AuthedArticleArticleIDEditRoute: typeof AuthedArticleArticleIDEditRoute
-  AuthedArticleArticleIDIndexRoute: typeof AuthedArticleArticleIDIndexRoute
+  AuthedIndexRoute: typeof AuthedIndexRoute;
+  AuthedArticleCreateRoute: typeof AuthedArticleCreateRoute;
+  AuthedArticleArticleIDEditRoute: typeof AuthedArticleArticleIDEditRoute;
+  AuthedArticleArticleIDIndexRoute: typeof AuthedArticleArticleIDIndexRoute;
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedIndexRoute: AuthedIndexRoute,
+  AuthedArticleCreateRoute: AuthedArticleCreateRoute,
   AuthedArticleArticleIDEditRoute: AuthedArticleArticleIDEditRoute,
   AuthedArticleArticleIDIndexRoute: AuthedArticleArticleIDIndexRoute,
-}
+};
 
 const AuthedRouteWithChildren =
-  AuthedRoute._addFileChildren(AuthedRouteChildren)
+  AuthedRoute._addFileChildren(AuthedRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   AuthedRoute: AuthedRouteWithChildren,
@@ -402,16 +423,16 @@ const rootRouteChildren: RootRouteChildren = {
   DemoStartSsrFullSsrRoute: DemoStartSsrFullSsrRoute,
   DemoStartSsrSpaModeRoute: DemoStartSsrSpaModeRoute,
   DemoStartSsrIndexRoute: DemoStartSsrIndexRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { getRouter } from './router.tsx';
+import type { createStart } from '@tanstack/react-start';
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

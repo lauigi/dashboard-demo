@@ -8,6 +8,7 @@ import {
 } from '@workspace/ui/components/empty';
 import { FilePlusCorner } from 'lucide-react';
 import { Button } from '@workspace/ui/components/button';
+import { Link } from '@tanstack/react-router';
 
 export default function NoArticles({ searchTitle }: { searchTitle: string }) {
   return (
@@ -25,7 +26,11 @@ export default function NoArticles({ searchTitle }: { searchTitle: string }) {
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button>Create Article</Button>
+        <Button>
+          <Link to="/article/create" search={{ presetTitle: searchTitle }}>
+            Create Article
+          </Link>
+        </Button>
       </EmptyContent>
     </Empty>
   );

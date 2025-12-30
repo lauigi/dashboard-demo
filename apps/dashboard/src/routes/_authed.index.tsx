@@ -2,7 +2,7 @@ import Articles from '@/components/article/List';
 import ArticlesLoading from '@/components/article/Loading';
 import { defaultAPI } from '@/utils/fetcher';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { Button } from '@workspace/ui/components/button';
 import { Spinner } from '@workspace/ui/components/spinner';
 import { Checkbox } from '@workspace/ui/components/checkbox';
@@ -11,19 +11,16 @@ import { Kbd } from '@workspace/ui/components/kbd';
 import {
   InputGroup,
   InputGroupAddon,
+  InputGroupButton,
   InputGroupInput,
 } from '@workspace/ui/components/input-group';
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
-import { atomWithStorage } from 'jotai/utils';
 import { useAtom } from 'jotai';
 import { Separator } from '@workspace/ui/components/separator';
-import { SearchIcon } from 'lucide-react';
+import { X, FilePlusCorner, SearchIcon } from 'lucide-react';
 import { useDebounceCallback } from 'usehooks-ts';
 import NoArticles from '@/components/article/NoArticles';
-
-const mineFilterAtom = atomWithStorage('mineFilter', false, undefined, {
-  getOnInit: true,
-});
+import { mineFilterAtom, titleKeywordAtom } from '@/utils/atoms';
 
 export const Route = createFileRoute('/_authed/')({ component: App });
 
@@ -31,7 +28,7 @@ function App() {
   const [mineFilter, setMineFilter] = useAtom(mineFilterAtom);
   const { user } = Route.useRouteContext();
   const [searchTitle, setSearchTitle] = useState('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useAtom(titleKeywordAtom);
   const handleSearch = useDebounceCallback(setTitle, undefined, {
     leading: true,
   });
@@ -64,9 +61,14 @@ function App() {
     <>
       <div className="sticky z-50 top-12 bg-white">
         <div className="flex justify-between items-center px-6">
-          <h2 className="my-4 text-3xl font-semibold tracking-tight mr-auto">
+          <h2 className="my-4 text-3xl font-semibold tracking-tight">
             Article List
           </h2>
+          <Button className="mr-auto ml-3" size="sm" asChild>
+            <Link to="/article/create">
+              <FilePlusCorner /> Create
+            </Link>
+          </Button>
           {status === 'pending' ? (
             <Spinner className="mr-2" />
           ) : (
@@ -83,7 +85,7 @@ function App() {
           <div className="mx-3 h-8">
             <Separator orientation="vertical" />
           </div>
-          <InputGroup className="w-60">
+          <InputGroup className="w-70">
             <InputGroupInput
               placeholder="Search by title"
               value={searchTitle}
@@ -101,6 +103,19 @@ function App() {
               <SearchIcon />
             </InputGroupAddon>
             <InputGroupAddon align="inline-end">
+              {searchTitle && (
+                <InputGroupButton
+                  variant="outline"
+                  className="rounded-full"
+                  size="icon-xs"
+                  onClick={() => {
+                    setSearchTitle('');
+                    handleSearch('');
+                  }}
+                >
+                  <X />
+                </InputGroupButton>
+              )}
               {status === 'pending' ? <Spinner /> : <Kbd>⏎</Kbd>}
             </InputGroupAddon>
           </InputGroup>
