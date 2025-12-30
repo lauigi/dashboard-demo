@@ -1,10 +1,10 @@
-import { createFileRoute, useRouteContext } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_authed/article/$articleID/')({
   component: App,
 });
 
 function App() {
-  const { user } = useRouteContext({ from: '__root__' });
+  const { user } = Route.useRouteContext();
   return <div>show - {user?.email}</div>;
 }

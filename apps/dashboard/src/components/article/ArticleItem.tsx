@@ -19,8 +19,6 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogOverlay,
-  AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@workspace/ui/components/alert-dialog';
@@ -29,14 +27,16 @@ import DeleteConfirmBtn from './DeleteConfirmBtn';
 
 interface IArticle {
   article: Article;
+  style: Record<string, string | number>;
 }
 export default function ArticleItem({
   article: { id, title, userEmail, tags },
+  ...props
 }: IArticle) {
   const { user } = useRouteContext({ from: '__root__' });
   const navigate = useNavigate();
   return (
-    <Item variant="outline" className="my-2 flex-nowrap" asChild>
+    <Item variant="outline" className="my-2 flex-nowrap" {...props} asChild>
       <Link
         to={`/article/$articleID`}
         params={{
@@ -46,14 +46,13 @@ export default function ArticleItem({
           if ((event.target as HTMLElement).tagName === 'BUTTON') {
             event.preventDefault();
           }
-          debugger;
         }}
       >
         <ItemContent>
-          <ItemTitle className="whitespace-nowrap text-ellipsis overflow-hidden">
+          <ItemTitle className="whitespace-nowrap text-ellipsis overflow-hidden h-5">
             {title}
           </ItemTitle>
-          <ItemDescription className="line-clamp-1">
+          <ItemDescription className="line-clamp-1 h-5.5">
             {userEmail}{' '}
             {tags.map(({ name, id }) => (
               <Badge key={id} variant="secondary">
@@ -80,13 +79,7 @@ export default function ArticleItem({
                 <SquarePen />
                 Edit
               </Button>
-              <AlertDialog
-                onClick={(event) => {
-                  debugger;
-                  event.preventDefault();
-                  event.stopPropagation();
-                }}
-              >
+              <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="destructive" size="sm">
                     <Trash2 />
