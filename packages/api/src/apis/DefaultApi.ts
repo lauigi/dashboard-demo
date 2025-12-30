@@ -41,6 +41,7 @@ export interface ArticlesGetRequest {
   lastID?: string;
   limit?: number;
   author?: string;
+  title?: string;
 }
 
 export interface TagsGetRequest {
@@ -84,6 +85,7 @@ export interface DefaultApiInterface {
    * @param {string} [lastID]
    * @param {number} [limit]
    * @param {string} [author] filter by author email
+   * @param {string} [title]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApiInterface
@@ -203,6 +205,10 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
     if (requestParameters['author'] != null) {
       queryParameters['author'] = requestParameters['author'];
+    }
+
+    if (requestParameters['title'] != null) {
+      queryParameters['title'] = requestParameters['title'];
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
