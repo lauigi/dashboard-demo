@@ -1,6 +1,6 @@
 {
   "name": "@workspace/api",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "OpenAPI client for @workspace/api",
   "author": "OpenAPI-Generator",
   "repository": {
@@ -10,8 +10,10 @@
   "license": "UNLICENSED",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc -p tsconfig.esm.json",
     "prepare": "npm run build"
   },
   "devDependencies": {

@@ -7,9 +7,19 @@ import { Button } from '@workspace/ui/components/button';
 import { Spinner } from '@workspace/ui/components/spinner';
 import { Checkbox } from '@workspace/ui/components/checkbox';
 import { Label } from '@workspace/ui/components/label';
-import { useCallback } from 'react';
+import { Kbd } from '@workspace/ui/components/kbd';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@workspace/ui/components/input-group';
+import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
 import { atomWithStorage } from 'jotai/utils';
 import { useAtom } from 'jotai';
+import { Separator } from '@workspace/ui/components/separator';
+import { SearchIcon } from 'lucide-react';
+import { useDebounceCallback } from 'usehooks-ts';
+import NoArticles from '@/components/article/NoArticles';
 
 const mineFilterAtom = atomWithStorage('mineFilter', false, undefined, {
   getOnInit: true,
@@ -20,16 +30,22 @@ export const Route = createFileRoute('/_authed/')({ component: App });
 function App() {
   const [mineFilter, setMineFilter] = useAtom(mineFilterAtom);
   const { user } = Route.useRouteContext();
+  const [searchTitle, setSearchTitle] = useState('');
+  const [title, setTitle] = useState('');
+  const handleSearch = useDebounceCallback(setTitle, undefined, {
+    leading: true,
+  });
   const fetchArticles = useCallback(
     async ({ pageParam: lastID }: { pageParam: string }) => {
       const response = await defaultAPI.articlesGet({
         lastID,
         limit: 10,
         ...(mineFilter && { author: user?.email }),
+        ...(title && { title }),
       });
       return response;
     },
-    [mineFilter, user?.email],
+    [mineFilter, title, user?.email],
   );
   const {
     status,
@@ -39,57 +55,90 @@ function App() {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['articles', mineFilter],
+    queryKey: ['articles', mineFilter, title],
     queryFn: fetchArticles,
     initialPageParam: '',
     getNextPageParam: (lastPage) => lastPage.nextID,
   });
   return (
-    <main className="mt-2 px-6 pb-6">
-      <div className="flex justify-between items-center">
-        <h2 className="my-4 text-3xl font-semibold tracking-tight mr-auto">
-          Article List
-        </h2>
-        {status === 'pending' ? (
-          <Spinner className="mr-2" />
-        ) : (
-          <Checkbox
-            id="onlyMine"
-            className="mr-2"
-            defaultChecked={mineFilter}
-            onCheckedChange={(checked: boolean) => {
-              setMineFilter(checked);
-            }}
-          />
-        )}
-        <Label htmlFor="onlyMine">Show only my articles</Label>
-      </div>
-      {status === 'pending' ? (
-        <ArticlesLoading />
-      ) : status === 'error' ? (
-        <span>Error: {error.message}</span>
-      ) : (
-        <>
-          <Articles list={data?.pages ?? []} />
-          {hasNextPage && (
-            <Button
-              className="my-2"
-              onClick={() => {
-                fetchNextPage();
+    <>
+      <div className="sticky z-50 top-12 bg-white">
+        <div className="flex justify-between items-center px-6">
+          <h2 className="my-4 text-3xl font-semibold tracking-tight mr-auto">
+            Article List
+          </h2>
+          {status === 'pending' ? (
+            <Spinner className="mr-2" />
+          ) : (
+            <Checkbox
+              id="onlyMine"
+              className="mr-2"
+              defaultChecked={mineFilter}
+              onCheckedChange={(checked: boolean) => {
+                setMineFilter(checked);
               }}
-            >
-              {isFetchingNextPage ? (
-                <>
-                  <Spinner />
-                  Loading
-                </>
-              ) : (
-                'Load more'
-              )}
-            </Button>
+            />
           )}
-        </>
-      )}
-    </main>
+          <Label htmlFor="onlyMine">Show only my articles</Label>
+          <div className="mx-3 h-8">
+            <Separator orientation="vertical" />
+          </div>
+          <InputGroup className="w-60">
+            <InputGroupInput
+              placeholder="Search by title"
+              value={searchTitle}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setSearchTitle(event.target.value)
+              }
+              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+                if (status === 'pending') return;
+                if (e.key === 'Enter') {
+                  handleSearch(searchTitle);
+                }
+              }}
+            />
+            <InputGroupAddon>
+              <SearchIcon />
+            </InputGroupAddon>
+            <InputGroupAddon align="inline-end">
+              {status === 'pending' ? <Spinner /> : <Kbd>⏎</Kbd>}
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
+        <Separator className="mb-2 shadow" />
+      </div>
+      <main className="mt-2 px-6 pb-6">
+        {status === 'pending' ? (
+          <ArticlesLoading />
+        ) : status === 'error' ? (
+          <span>Error: {error.message}</span>
+        ) : (
+          <>
+            {data?.pages[0].articles.length === 0 && !hasNextPage ? (
+              <NoArticles searchTitle={searchTitle} />
+            ) : (
+              <Articles list={data.pages} />
+            )}
+            {hasNextPage && (
+              <Button
+                className="my-2"
+                onClick={() => {
+                  fetchNextPage();
+                }}
+              >
+                {isFetchingNextPage ? (
+                  <>
+                    <Spinner />
+                    Loading
+                  </>
+                ) : (
+                  'Load more'
+                )}
+              </Button>
+            )}
+          </>
+        )}
+      </main>
+    </>
   );
 }

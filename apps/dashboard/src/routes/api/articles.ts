@@ -11,6 +11,7 @@ export const Route = createFileRoute('/api/articles')({
         const limit = Number(url.searchParams.get('limit'));
         const lastID = url.searchParams.get('lastID') as string;
         const author = url.searchParams.get('author') as string;
+        const searchTitle = url.searchParams.get('title') as string;
         let startIndex = 0;
         if (lastID) {
           startIndex = Math.max(
@@ -19,8 +20,13 @@ export const Route = createFileRoute('/api/articles')({
           );
         }
         let targetArticles = [...articleList];
+        if (searchTitle) {
+          targetArticles = articleList.filter(({ title }) =>
+            title.includes(searchTitle),
+          );
+        }
         if (author) {
-          targetArticles = articleList.filter(
+          targetArticles = targetArticles.filter(
             ({ userEmail }) => userEmail === author,
           );
         }
