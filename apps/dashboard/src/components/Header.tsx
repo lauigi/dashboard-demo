@@ -7,7 +7,7 @@ export default function Header() {
   const navigate = useNavigate();
   return (
     <>
-      <header className="py-1 px-4 sticky top-0 z-50 w-full flex items-center bg-gray-800 text-white shadow-lg">
+      <header className="py-1.5 px-4 sticky top-0 z-50 w-full flex items-center bg-gray-800 text-white shadow-lg">
         <h1 className="ml-4 text-xl font-semibold mr-auto">
           <Link to="/">Another Dashboard</Link>
         </h1>

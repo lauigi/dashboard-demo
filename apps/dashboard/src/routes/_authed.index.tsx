@@ -36,7 +36,7 @@ function App() {
     async ({ pageParam: lastID }: { pageParam: string }) => {
       const response = await defaultAPI.articlesGet({
         lastID,
-        limit: 10,
+        limit: 20,
         ...(mineFilter && { author: user?.email }),
         ...(title && { title }),
       });
@@ -132,13 +132,18 @@ function App() {
             {data?.pages[0].articles.length === 0 && !hasNextPage ? (
               <NoArticles searchTitle={searchTitle} />
             ) : (
-              <Articles list={data.pages} />
+              <Articles
+                list={data.pages}
+                fetchNextPage={fetchNextPage}
+                hasNextPage={hasNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+              />
             )}
             {hasNextPage && (
               <Button
                 className="my-2"
                 onClick={() => {
-                  fetchNextPage();
+                  if (!isFetchingNextPage) fetchNextPage();
                 }}
               >
                 {isFetchingNextPage ? (
