@@ -55,8 +55,8 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
         let article = articleList[articleIndex];
         if (article.userEmail !== session.data.userEmail) {
           return Response.json(
-            { message: GENERAL_MESSAGE[STATUS_CODES.Unauthorized] },
-            { status: STATUS_CODES.Unauthorized },
+            { message: GENERAL_MESSAGE[STATUS_CODES.unauthorized] },
+            { status: STATUS_CODES.unauthorized },
           );
         }
         const { title, content, tags } =
@@ -83,8 +83,8 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
         const session = await useAppSession();
         if (!session.data.userEmail) {
           return Response.json(
-            { message: GENERAL_MESSAGE[STATUS_CODES.Unauthorized] },
-            { status: STATUS_CODES.Unauthorized },
+            { message: GENERAL_MESSAGE[STATUS_CODES.unauthorized] },
+            { status: STATUS_CODES.unauthorized },
           );
         }
         const { title, content, tags } =

@@ -5,14 +5,16 @@ import { tz } from '@date-fns/tz';
 
 export const STATUS_CODES = {
   badRequest: 400,
-  Unauthorized: 401,
+  unauthorized: 401,
   notFound: 404,
+  conflict: 409,
 };
 
 export const GENERAL_MESSAGE = {
   [STATUS_CODES.badRequest]: 'Bad request',
-  [STATUS_CODES.Unauthorized]: 'Unauthorized',
+  [STATUS_CODES.unauthorized]: 'Unauthorized',
   [STATUS_CODES.notFound]: 'Not found',
+  [STATUS_CODES.conflict]: 'Conflict',
 };
 
 export const APP_TZ = tz('America/Toronto');
@@ -25,10 +27,13 @@ const pickNUnique = <T>(list: T[], n: number) => {
   return shuffled.slice(0, n);
 };
 
-const generateTag = (): Tag => ({
-  id: faker.string.nanoid(),
-  name: faker.lorem.word(),
-});
+const generateTags = (): Tag[] => {
+  const names = new Set(Array.from({ length: 500 }, () => faker.lorem.word()));
+  return [...names].map((name) => ({
+    id: faker.string.nanoid(),
+    name,
+  }));
+};
 
 export const userList = [
   'admin@example.com',
@@ -55,7 +60,7 @@ const generateArticle = (): Article => {
   };
 };
 
-export const tagList = Array.from({ length: 1000 }, () => generateTag());
+export const tagList = generateTags();
 export const articleList = Array.from({ length: 1000 }, () =>
   generateArticle(),
 );

@@ -20,6 +20,7 @@ import type {
   TagIdDelete200Response,
   TagPost400Response,
   TagPost401Response,
+  TagPostRequest,
 } from '../models/index';
 import {
   ArticleFromJSON,
@@ -34,6 +35,8 @@ import {
   TagPost400ResponseToJSON,
   TagPost401ResponseFromJSON,
   TagPost401ResponseToJSON,
+  TagPostRequestFromJSON,
+  TagPostRequestToJSON,
 } from '../models/index';
 
 export interface ArticleIdDeleteRequest {
@@ -55,11 +58,11 @@ export interface TagIdDeleteRequest {
 
 export interface TagIdPutRequest {
   id: string;
-  name?: string;
+  tagPostRequest: TagPostRequest;
 }
 
-export interface TagPostRequest {
-  name?: string;
+export interface TagPostOperationRequest {
+  tagPostRequest: TagPostRequest;
 }
 
 /**
@@ -162,7 +165,7 @@ export interface AuthedApiInterface {
    *
    * @summary Update a tag
    * @param {string} id
-   * @param {string} [name]
+   * @param {TagPostRequest} tagPostRequest
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof AuthedApiInterface
@@ -184,13 +187,13 @@ export interface AuthedApiInterface {
   /**
    *
    * @summary Create a tag
-   * @param {string} [name]
+   * @param {TagPostRequest} tagPostRequest
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof AuthedApiInterface
    */
   tagPostRaw(
-    requestParameters: TagPostRequest,
+    requestParameters: TagPostOperationRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Tag>>;
 
@@ -199,7 +202,7 @@ export interface AuthedApiInterface {
    * Create a tag
    */
   tagPost(
-    requestParameters: TagPostRequest,
+    requestParameters: TagPostOperationRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Tag>;
 }
@@ -441,13 +444,18 @@ export class AuthedApi extends runtime.BaseAPI implements AuthedApiInterface {
       );
     }
 
-    const queryParameters: any = {};
-
-    if (requestParameters['name'] != null) {
-      queryParameters['name'] = requestParameters['name'];
+    if (requestParameters['tagPostRequest'] == null) {
+      throw new runtime.RequiredError(
+        'tagPostRequest',
+        'Required parameter "tagPostRequest" was null or undefined when calling tagIdPut().',
+      );
     }
 
+    const queryParameters: any = {};
+
     const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters['Content-Type'] = 'application/json';
 
     const response = await this.request(
       {
@@ -458,6 +466,7 @@ export class AuthedApi extends runtime.BaseAPI implements AuthedApiInterface {
         method: 'PUT',
         headers: headerParameters,
         query: queryParameters,
+        body: TagPostRequestToJSON(requestParameters['tagPostRequest']),
       },
       initOverrides,
     );
@@ -484,16 +493,21 @@ export class AuthedApi extends runtime.BaseAPI implements AuthedApiInterface {
    * Create a tag
    */
   async tagPostRaw(
-    requestParameters: TagPostRequest,
+    requestParameters: TagPostOperationRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Tag>> {
-    const queryParameters: any = {};
-
-    if (requestParameters['name'] != null) {
-      queryParameters['name'] = requestParameters['name'];
+    if (requestParameters['tagPostRequest'] == null) {
+      throw new runtime.RequiredError(
+        'tagPostRequest',
+        'Required parameter "tagPostRequest" was null or undefined when calling tagPost().',
+      );
     }
 
+    const queryParameters: any = {};
+
     const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters['Content-Type'] = 'application/json';
 
     const response = await this.request(
       {
@@ -501,6 +515,7 @@ export class AuthedApi extends runtime.BaseAPI implements AuthedApiInterface {
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
+        body: TagPostRequestToJSON(requestParameters['tagPostRequest']),
       },
       initOverrides,
     );
@@ -515,7 +530,7 @@ export class AuthedApi extends runtime.BaseAPI implements AuthedApiInterface {
    * Create a tag
    */
   async tagPost(
-    requestParameters: TagPostRequest = {},
+    requestParameters: TagPostOperationRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Tag> {
     const response = await this.tagPostRaw(requestParameters, initOverrides);

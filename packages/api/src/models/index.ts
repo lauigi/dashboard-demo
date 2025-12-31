@@ -9,4 +9,5 @@ export * from './Tag';
 export * from './TagIdDelete200Response';
 export * from './TagPost400Response';
 export * from './TagPost401Response';
+export * from './TagPostRequest';
 export * from './TagsGet200Response';

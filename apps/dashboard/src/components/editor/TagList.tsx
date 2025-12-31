@@ -22,8 +22,12 @@ import {
   InputGroupInput,
 } from '@workspace/ui/components/input-group';
 import { Spinner } from '@workspace/ui/components/spinner';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { defaultAPI } from '@/utils/fetcher';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { authedAPI, defaultAPI } from '@/utils/fetcher';
 import { TAG_PER_PAGE_LIMIT } from '@/utils/constants';
 import { useDebounceValue } from 'usehooks-ts';
 
@@ -56,7 +60,19 @@ export default function TagList({
     [debouncedSearchingTagName],
   );
 
-  const createNewTag = () => {};
+  const queryClient = useQueryClient();
+
+  const createNewTagMutation = useMutation({
+    mutationFn: useCallback(async (newTagName: string) => {
+      const response = await authedAPI.tagPost({
+        tagPostRequest: { name: newTagName },
+      });
+      return response;
+    }, []),
+    onSuccess: (tag) => addTag(tag),
+    onSettled: (tag) =>
+      queryClient.invalidateQueries({ queryKey: ['tags', tag?.name] }),
+  });
 
   const {
     status,
@@ -148,9 +164,20 @@ export default function TagList({
         ) : (
           <>
             {data.pages[0].tags.length === 0 && !hasNextPage ? (
-              <Button className="mt-10 w-50 mx-auto" onClick={createNewTag}>
-                <CirclePlus className="mr-1" />
-                Create {searchingTagName} tag
+              <Button
+                variant="link"
+                className="mt-10 max-w-50 mx-auto whitespace-normal!"
+                onClick={() => {
+                  if (createNewTagMutation.isPending) return;
+                  createNewTagMutation.mutate(debouncedSearchingTagName);
+                }}
+              >
+                {createNewTagMutation.isPending ? (
+                  <Spinner />
+                ) : (
+                  <CirclePlus className="mr-1" />
+                )}
+                Create tag: {debouncedSearchingTagName}
               </Button>
             ) : (
               <ItemGroup

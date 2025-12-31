@@ -1,6 +1,6 @@
 {
   "name": "@workspace/api",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "OpenAPI client for @workspace/api",
   "author": "OpenAPI-Generator",
   "repository": {

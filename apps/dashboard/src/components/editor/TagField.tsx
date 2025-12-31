@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@workspace/ui/components/popover';
-import { Card } from '@workspace/ui/components/card';
+import { Card, CardDescription } from '@workspace/ui/components/card';
 import { Badge } from '@workspace/ui/components/badge';
 import { ChevronsUpDown, X } from 'lucide-react';
 import { Button } from '@workspace/ui/components/button';
@@ -38,6 +38,11 @@ const TagField = memo(function ({ tags, addTag, removeTag }: ITagField) {
             <PopoverTrigger asChild>
               <Card className="py-2 w-120 max-w-120">
                 <div className="flex px-2 flex-wrap gap-2">
+                  {tags.length === 0 && (
+                    <CardDescription className="flex items-center h-9.5">
+                      Click to add some tags.
+                    </CardDescription>
+                  )}
                   {tags.map((tag) => (
                     <Badge
                       key={tag.id}

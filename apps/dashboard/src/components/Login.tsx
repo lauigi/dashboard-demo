@@ -1,5 +1,5 @@
 import { useRouter } from '@tanstack/react-router';
-import { useMutation } from '../hooks/useMutation';
+import { useMutation } from '@tanstack/react-query';
 import { Button } from '@workspace/ui/components/button';
 import {
   Card,
@@ -9,13 +9,14 @@ import {
   CardContent,
 } from '@workspace/ui/components/card';
 import { loginFn } from '@/routes/_authed';
+import { Spinner } from '@workspace/ui/components/spinner';
 
 export function Login() {
   const router = useRouter();
   const loginMutation = useMutation({
-    fn: loginFn,
-    onSuccess: async (ctx) => {
-      if (!ctx.data?.error) {
+    mutationFn: loginFn,
+    onSuccess: async (data) => {
+      if (!data?.error) {
         await router.invalidate();
         router.navigate({ to: '/' });
         return;
@@ -71,7 +72,7 @@ export function Login() {
               variant="outline"
               disabled={loginMutation.status === 'pending'}
             >
-              {loginMutation.status === 'pending' ? '...' : 'Login'}
+              {loginMutation.status === 'pending' ? <Spinner /> : 'Login'}
             </Button>
           </form>
         </CardContent>

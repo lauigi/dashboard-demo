@@ -26,8 +26,8 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
         const session = await useAppSession();
         if (!session.data.isAdmin) {
           return Response.json(
-            { message: GENERAL_MESSAGE[STATUS_CODES.Unauthorized] },
-            { status: STATUS_CODES.Unauthorized },
+            { message: GENERAL_MESSAGE[STATUS_CODES.unauthorized] },
+            { status: STATUS_CODES.unauthorized },
           );
         }
         const { name } = (await request.json()) as TagPostRequest;
@@ -46,8 +46,8 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
         const session = await useAppSession();
         if (!session.data.userEmail) {
           return Response.json(
-            { message: GENERAL_MESSAGE[STATUS_CODES.Unauthorized] },
-            { status: STATUS_CODES.Unauthorized },
+            { message: GENERAL_MESSAGE[STATUS_CODES.unauthorized] },
+            { status: STATUS_CODES.unauthorized },
           );
         }
         const { name } = (await request.json()) as TagPostRequest;
@@ -55,6 +55,12 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
           return Response.json(
             { message: GENERAL_MESSAGE[STATUS_CODES.badRequest] },
             { status: STATUS_CODES.badRequest },
+          );
+        }
+        if (tagList.find(({ name: existingName }) => name === existingName)) {
+          return Response.json(
+            { message: GENERAL_MESSAGE[STATUS_CODES.conflict] },
+            { status: STATUS_CODES.conflict },
           );
         }
         const tag: Tag = {

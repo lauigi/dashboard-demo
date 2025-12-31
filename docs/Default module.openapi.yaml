@@ -11,13 +11,19 @@ paths:
       deprecated: false
       description: ''
       tags: []
-      parameters:
-        - name: name
-          in: query
-          description: ''
-          required: false
-          schema:
-            type: string
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+            examples: {}
+        required: true
       responses:
         '200':
           description: ''
@@ -50,12 +56,18 @@ paths:
           required: true
           schema:
             type: string
-        - name: name
-          in: query
-          description: ''
-          required: false
-          schema:
-            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+            examples: {}
+        required: true
       responses:
         '200':
           description: ''
@@ -483,6 +495,18 @@ components:
       content:
         application/json:
           schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+    Conflict:
+      description: ''
+      content:
+        application/json:
+          schema:
+            title: ''
             type: object
             properties:
               message:
