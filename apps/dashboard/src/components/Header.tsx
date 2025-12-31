@@ -19,7 +19,7 @@ export default function Header() {
                 navigate({ to: '/logout' });
               }}
             >
-              <LogOut size={24} />
+              <LogOut />
             </Button>
           </>
         )}
@@ -34,7 +34,7 @@ export default function Header() {
               });
             }}
           >
-            <LogIn size={24} />
+            <LogIn />
             Login
           </Button>
         )}

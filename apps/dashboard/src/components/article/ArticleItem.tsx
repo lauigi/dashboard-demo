@@ -53,7 +53,7 @@ export default function ArticleItem({
         }}
       >
         <ItemContent>
-          <ItemTitle className="whitespace-nowrap text-ellipsis overflow-hidden h-5">
+          <ItemTitle className="whitespace-nowrap text-ellipsis overflow-hidden h-5 gap-0">
             <HighlightText text={title} keywords={[titleKeyword]} />
           </ItemTitle>
           <ItemDescription className="line-clamp-1 h-5.5">

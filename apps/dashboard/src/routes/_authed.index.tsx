@@ -21,6 +21,7 @@ import { X, FilePlusCorner, SearchIcon } from 'lucide-react';
 import { useDebounceCallback } from 'usehooks-ts';
 import NoArticles from '@/components/article/NoArticles';
 import { mineFilterAtom, titleKeywordAtom } from '@/utils/atoms';
+import { ARTICLE_PER_PAGE_LIMIT } from '@/utils/constants';
 
 export const Route = createFileRoute('/_authed/')({ component: App });
 
@@ -36,7 +37,7 @@ function App() {
     async ({ pageParam: lastID }: { pageParam: string }) => {
       const response = await defaultAPI.articlesGet({
         lastID,
-        limit: 20,
+        limit: ARTICLE_PER_PAGE_LIMIT,
         ...(mineFilter && { author: user?.email }),
         ...(title && { title }),
       });

@@ -8,118 +8,118 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as LogoutRouteImport } from './routes/logout';
-import { Route as LoginRouteImport } from './routes/login';
-import { Route as AuthedRouteImport } from './routes/_authed';
-import { Route as AuthedIndexRouteImport } from './routes/_authed.index';
-import { Route as ApiTagsRouteImport } from './routes/api/tags';
-import { Route as ApiArticlesRouteImport } from './routes/api/articles';
-import { Route as ApiTagChar123TagIDChar125RouteImport } from './routes/api/tag.{-$tagID}';
-import { Route as ApiArticleChar123ArticleIDChar125RouteImport } from './routes/api/article.{-$articleID}';
-import { Route as AuthedArticleCreateRouteImport } from './routes/_authed.article/create';
-import { Route as AuthedArticleArticleIDIndexRouteImport } from './routes/_authed.article/$articleID.index';
-import { Route as AuthedArticleArticleIDEditRouteImport } from './routes/_authed.article/$articleID.edit';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as LogoutRouteImport } from './routes/logout'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthedRouteImport } from './routes/_authed'
+import { Route as AuthedIndexRouteImport } from './routes/_authed.index'
+import { Route as ApiTagsRouteImport } from './routes/api/tags'
+import { Route as ApiArticlesRouteImport } from './routes/api/articles'
+import { Route as ApiTagChar123TagIDChar125RouteImport } from './routes/api/tag.{-$tagID}'
+import { Route as ApiArticleChar123ArticleIDChar125RouteImport } from './routes/api/article.{-$articleID}'
+import { Route as AuthedArticleCreateRouteImport } from './routes/_authed.article/create'
+import { Route as AuthedArticleArticleIDIndexRouteImport } from './routes/_authed.article/$articleID.index'
+import { Route as AuthedArticleArticleIDEditRouteImport } from './routes/_authed.article/$articleID.edit'
 
 const LogoutRoute = LogoutRouteImport.update({
   id: '/logout',
   path: '/logout',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AuthedRoute = AuthedRouteImport.update({
   id: '/_authed',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AuthedIndexRoute = AuthedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthedRoute,
-} as any);
+} as any)
 const ApiTagsRoute = ApiTagsRouteImport.update({
   id: '/api/tags',
   path: '/api/tags',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ApiArticlesRoute = ApiArticlesRouteImport.update({
   id: '/api/articles',
   path: '/api/articles',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ApiTagChar123TagIDChar125Route =
   ApiTagChar123TagIDChar125RouteImport.update({
     id: '/api/tag/{-$tagID}',
     path: '/api/tag/{-$tagID}',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const ApiArticleChar123ArticleIDChar125Route =
   ApiArticleChar123ArticleIDChar125RouteImport.update({
     id: '/api/article/{-$articleID}',
     path: '/api/article/{-$articleID}',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const AuthedArticleCreateRoute = AuthedArticleCreateRouteImport.update({
   id: '/article/create',
   path: '/article/create',
   getParentRoute: () => AuthedRoute,
-} as any);
+} as any)
 const AuthedArticleArticleIDIndexRoute =
   AuthedArticleArticleIDIndexRouteImport.update({
     id: '/article/$articleID/',
     path: '/article/$articleID/',
     getParentRoute: () => AuthedRoute,
-  } as any);
+  } as any)
 const AuthedArticleArticleIDEditRoute =
   AuthedArticleArticleIDEditRouteImport.update({
     id: '/article/$articleID/edit',
     path: '/article/$articleID/edit',
     getParentRoute: () => AuthedRoute,
-  } as any);
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/login': typeof LoginRoute;
-  '/logout': typeof LogoutRoute;
-  '/api/articles': typeof ApiArticlesRoute;
-  '/api/tags': typeof ApiTagsRoute;
-  '/': typeof AuthedIndexRoute;
-  '/article/create': typeof AuthedArticleCreateRoute;
-  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route;
-  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route;
-  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute;
-  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute;
+  '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/api/articles': typeof ApiArticlesRoute
+  '/api/tags': typeof ApiTagsRoute
+  '/': typeof AuthedIndexRoute
+  '/article/create': typeof AuthedArticleCreateRoute
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
+  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
+  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute
+  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute
 }
 export interface FileRoutesByTo {
-  '/login': typeof LoginRoute;
-  '/logout': typeof LogoutRoute;
-  '/api/articles': typeof ApiArticlesRoute;
-  '/api/tags': typeof ApiTagsRoute;
-  '/': typeof AuthedIndexRoute;
-  '/article/create': typeof AuthedArticleCreateRoute;
-  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route;
-  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route;
-  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute;
-  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute;
+  '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/api/articles': typeof ApiArticlesRoute
+  '/api/tags': typeof ApiTagsRoute
+  '/': typeof AuthedIndexRoute
+  '/article/create': typeof AuthedArticleCreateRoute
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
+  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
+  '/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute
+  '/article/$articleID': typeof AuthedArticleArticleIDIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  '/_authed': typeof AuthedRouteWithChildren;
-  '/login': typeof LoginRoute;
-  '/logout': typeof LogoutRoute;
-  '/api/articles': typeof ApiArticlesRoute;
-  '/api/tags': typeof ApiTagsRoute;
-  '/_authed/': typeof AuthedIndexRoute;
-  '/_authed/article/create': typeof AuthedArticleCreateRoute;
-  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route;
-  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route;
-  '/_authed/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute;
-  '/_authed/article/$articleID/': typeof AuthedArticleArticleIDIndexRoute;
+  __root__: typeof rootRouteImport
+  '/_authed': typeof AuthedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/api/articles': typeof ApiArticlesRoute
+  '/api/tags': typeof ApiTagsRoute
+  '/_authed/': typeof AuthedIndexRoute
+  '/_authed/article/create': typeof AuthedArticleCreateRoute
+  '/api/article/{-$articleID}': typeof ApiArticleChar123ArticleIDChar125Route
+  '/api/tag/{-$tagID}': typeof ApiTagChar123TagIDChar125Route
+  '/_authed/article/$articleID/edit': typeof AuthedArticleArticleIDEditRoute
+  '/_authed/article/$articleID/': typeof AuthedArticleArticleIDIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/login'
     | '/logout'
@@ -130,8 +130,8 @@ export interface FileRouteTypes {
     | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/article/$articleID/edit'
-    | '/article/$articleID';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/article/$articleID'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/logout'
@@ -142,7 +142,7 @@ export interface FileRouteTypes {
     | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/article/$articleID/edit'
-    | '/article/$articleID';
+    | '/article/$articleID'
   id:
     | '__root__'
     | '/_authed'
@@ -155,106 +155,106 @@ export interface FileRouteTypes {
     | '/api/article/{-$articleID}'
     | '/api/tag/{-$tagID}'
     | '/_authed/article/$articleID/edit'
-    | '/_authed/article/$articleID/';
-  fileRoutesById: FileRoutesById;
+    | '/_authed/article/$articleID/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthedRoute: typeof AuthedRouteWithChildren;
-  LoginRoute: typeof LoginRoute;
-  LogoutRoute: typeof LogoutRoute;
-  ApiArticlesRoute: typeof ApiArticlesRoute;
-  ApiTagsRoute: typeof ApiTagsRoute;
-  ApiArticleChar123ArticleIDChar125Route: typeof ApiArticleChar123ArticleIDChar125Route;
-  ApiTagChar123TagIDChar125Route: typeof ApiTagChar123TagIDChar125Route;
+  AuthedRoute: typeof AuthedRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  LogoutRoute: typeof LogoutRoute
+  ApiArticlesRoute: typeof ApiArticlesRoute
+  ApiTagsRoute: typeof ApiTagsRoute
+  ApiArticleChar123ArticleIDChar125Route: typeof ApiArticleChar123ArticleIDChar125Route
+  ApiTagChar123TagIDChar125Route: typeof ApiTagChar123TagIDChar125Route
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/logout': {
-      id: '/logout';
-      path: '/logout';
-      fullPath: '/logout';
-      preLoaderRoute: typeof LogoutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof LogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
-      id: '/login';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof LoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authed': {
-      id: '/_authed';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof AuthedRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/_authed'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authed/': {
-      id: '/_authed/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof AuthedIndexRouteImport;
-      parentRoute: typeof AuthedRoute;
-    };
+      id: '/_authed/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthedIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/api/tags': {
-      id: '/api/tags';
-      path: '/api/tags';
-      fullPath: '/api/tags';
-      preLoaderRoute: typeof ApiTagsRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/api/tags'
+      path: '/api/tags'
+      fullPath: '/api/tags'
+      preLoaderRoute: typeof ApiTagsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/articles': {
-      id: '/api/articles';
-      path: '/api/articles';
-      fullPath: '/api/articles';
-      preLoaderRoute: typeof ApiArticlesRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/api/articles'
+      path: '/api/articles'
+      fullPath: '/api/articles'
+      preLoaderRoute: typeof ApiArticlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tag/{-$tagID}': {
-      id: '/api/tag/{-$tagID}';
-      path: '/api/tag/{-$tagID}';
-      fullPath: '/api/tag/{-$tagID}';
-      preLoaderRoute: typeof ApiTagChar123TagIDChar125RouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/api/tag/{-$tagID}'
+      path: '/api/tag/{-$tagID}'
+      fullPath: '/api/tag/{-$tagID}'
+      preLoaderRoute: typeof ApiTagChar123TagIDChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/article/{-$articleID}': {
-      id: '/api/article/{-$articleID}';
-      path: '/api/article/{-$articleID}';
-      fullPath: '/api/article/{-$articleID}';
-      preLoaderRoute: typeof ApiArticleChar123ArticleIDChar125RouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/api/article/{-$articleID}'
+      path: '/api/article/{-$articleID}'
+      fullPath: '/api/article/{-$articleID}'
+      preLoaderRoute: typeof ApiArticleChar123ArticleIDChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authed/article/create': {
-      id: '/_authed/article/create';
-      path: '/article/create';
-      fullPath: '/article/create';
-      preLoaderRoute: typeof AuthedArticleCreateRouteImport;
-      parentRoute: typeof AuthedRoute;
-    };
+      id: '/_authed/article/create'
+      path: '/article/create'
+      fullPath: '/article/create'
+      preLoaderRoute: typeof AuthedArticleCreateRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/_authed/article/$articleID/': {
-      id: '/_authed/article/$articleID/';
-      path: '/article/$articleID';
-      fullPath: '/article/$articleID';
-      preLoaderRoute: typeof AuthedArticleArticleIDIndexRouteImport;
-      parentRoute: typeof AuthedRoute;
-    };
+      id: '/_authed/article/$articleID/'
+      path: '/article/$articleID'
+      fullPath: '/article/$articleID'
+      preLoaderRoute: typeof AuthedArticleArticleIDIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/_authed/article/$articleID/edit': {
-      id: '/_authed/article/$articleID/edit';
-      path: '/article/$articleID/edit';
-      fullPath: '/article/$articleID/edit';
-      preLoaderRoute: typeof AuthedArticleArticleIDEditRouteImport;
-      parentRoute: typeof AuthedRoute;
-    };
+      id: '/_authed/article/$articleID/edit'
+      path: '/article/$articleID/edit'
+      fullPath: '/article/$articleID/edit'
+      preLoaderRoute: typeof AuthedArticleArticleIDEditRouteImport
+      parentRoute: typeof AuthedRoute
+    }
   }
 }
 
 interface AuthedRouteChildren {
-  AuthedIndexRoute: typeof AuthedIndexRoute;
-  AuthedArticleCreateRoute: typeof AuthedArticleCreateRoute;
-  AuthedArticleArticleIDEditRoute: typeof AuthedArticleArticleIDEditRoute;
-  AuthedArticleArticleIDIndexRoute: typeof AuthedArticleArticleIDIndexRoute;
+  AuthedIndexRoute: typeof AuthedIndexRoute
+  AuthedArticleCreateRoute: typeof AuthedArticleCreateRoute
+  AuthedArticleArticleIDEditRoute: typeof AuthedArticleArticleIDEditRoute
+  AuthedArticleArticleIDIndexRoute: typeof AuthedArticleArticleIDIndexRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
@@ -262,10 +262,10 @@ const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedArticleCreateRoute: AuthedArticleCreateRoute,
   AuthedArticleArticleIDEditRoute: AuthedArticleArticleIDEditRoute,
   AuthedArticleArticleIDIndexRoute: AuthedArticleArticleIDIndexRoute,
-};
+}
 
 const AuthedRouteWithChildren =
-  AuthedRoute._addFileChildren(AuthedRouteChildren);
+  AuthedRoute._addFileChildren(AuthedRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   AuthedRoute: AuthedRouteWithChildren,
@@ -276,16 +276,16 @@ const rootRouteChildren: RootRouteChildren = {
   ApiArticleChar123ArticleIDChar125Route:
     ApiArticleChar123ArticleIDChar125Route,
   ApiTagChar123TagIDChar125Route: ApiTagChar123TagIDChar125Route,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from './router.tsx';
-import type { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

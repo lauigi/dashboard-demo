@@ -8,7 +8,7 @@ export default function DeleteConfirmBtn({ type: _type }: { type?: string }) {
     <>
       <Button
         onClick={() => {
-          toast('Not implemented');
+          toast.error('Not implemented');
         }}
         variant="destructive"
         size="sm"
