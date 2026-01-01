@@ -5,7 +5,6 @@ import {
   useCallback,
   useImperativeHandle,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import {
@@ -23,18 +22,18 @@ import { toast } from 'sonner';
 import { useAtom } from 'jotai';
 import { draftAtom } from '@/utils/atoms';
 import * as z from 'zod/mini';
-import { useShouldShowError } from '@/utils/hooks';
 
 export type ArticleDraft = Pick<Article, 'title' | 'content' | 'tags'>;
 
 export interface EditorHandle {
-  getData: () => ArticleDraft;
+  getData: () => ArticleDraft | undefined;
   reset: () => void;
 }
 
 interface IEditor {
   preset?: ArticleDraft;
   ref: Ref<EditorHandle>;
+  disabled: boolean;
 }
 
 const TitlePattern = z
@@ -56,32 +55,33 @@ const ContentPattern = z
     ),
   );
 
-export default function Editor({ preset, ref }: IEditor) {
+export default function Editor({ preset, ref, disabled = false }: IEditor) {
   const [draft, setDraft] = useAtom(draftAtom);
   const [title, setTitle] = useState(preset?.title ?? draft.title);
   const [content, setContent] = useState(preset?.content ?? draft.content);
   const [tags, setTags] = useState(preset?.tags ?? draft.tags);
-  const [focusOnTitle, setFocusOnTitle] = useState(false);
-  const [focusOnContent, setFocusOnContent] = useState(false);
-  const hasFocusedTitleRef = useRef(false);
-  const hasFocusedContentRef = useRef(false);
   const titleValidation = useMemo(() => TitlePattern.safeParse(title), [title]);
   const contentValidation = useMemo(
     () => ContentPattern.safeParse(content),
     [content],
   );
-  const showTitleError = useShouldShowError(
-    !focusOnTitle && hasFocusedTitleRef.current,
-    !titleValidation.success,
-  );
-  const showContentError = useShouldShowError(
-    !focusOnContent && hasFocusedContentRef.current,
-    !contentValidation.success,
-  );
+  const [showTitleError, setShowTitleError] = useState(false);
+  const [showContentError, setShowContentError] = useState(false);
 
   useImperativeHandle(ref, () => ({
-    getData: () => ({ title, content, tags }),
+    getData: () => {
+      if (contentValidation.success && titleValidation.success) {
+        return { title, content, tags };
+      } else {
+        // Force to show possible errors
+        setShowTitleError(true);
+        setShowContentError(true);
+        toast.error('Please resolve the issue(s) before publishing.');
+      }
+    },
     reset: () => {
+      setShowTitleError(false);
+      setShowContentError(false);
       setTitle('');
       setContent('');
       setTags([]);
@@ -120,11 +120,15 @@ export default function Editor({ preset, ref }: IEditor) {
           <FieldLabel htmlFor="article-editor-title">
             Title *
             <span
-              className={showTitleError ? 'text-destructive' : 'text-gray-500'}
+              className={
+                showTitleError && !titleValidation.success
+                  ? 'text-destructive'
+                  : 'text-gray-500'
+              }
             >
               {title.length ?? '-'} / {EDITOR_LIMIT.title.max}
             </span>
-            {showTitleError && (
+            {showTitleError && !titleValidation.success && (
               <FieldError>
                 {titleValidation.error?.issues[0].message}
               </FieldError>
@@ -134,16 +138,13 @@ export default function Editor({ preset, ref }: IEditor) {
             id="article-editor-title"
             placeholder="Title"
             autoComplete="off"
+            disabled={disabled}
             value={title}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setTitle(event.target.value);
               setDraft((val) => ({ ...val, title: event.target.value }));
             }}
-            onFocus={() => {
-              hasFocusedTitleRef.current = true;
-              setFocusOnTitle(true);
-            }}
-            onBlur={() => setFocusOnTitle(false)}
+            onBlur={() => setShowTitleError(true)}
           />
         </Field>
       </FieldSet>
@@ -151,7 +152,7 @@ export default function Editor({ preset, ref }: IEditor) {
         <Field>
           <FieldLabel htmlFor="article-editor-content">
             Content *
-            {showContentError && (
+            {showContentError && !contentValidation.success && (
               <FieldError>
                 {contentValidation.error?.issues[0].message}
               </FieldError>
@@ -162,26 +163,34 @@ export default function Editor({ preset, ref }: IEditor) {
             placeholder="Compose your article."
             className="resize-none max-h-100 min-h-32"
             maxLength={EDITOR_LIMIT.content.max * 2}
+            disabled={disabled}
             value={content}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setContent(event.target.value);
               setDraft((val) => ({ ...val, content: event.target.value }));
             }}
-            onFocus={() => {
-              hasFocusedContentRef.current = true;
-              setFocusOnContent(true);
-            }}
-            onBlur={() => setFocusOnContent(false)}
+            onBlur={() => setShowContentError(true)}
           />
           <FieldDescription>
             Content character Count:{' '}
-            <span className={showContentError ? 'text-destructive' : undefined}>
+            <span
+              className={
+                showContentError && !contentValidation.success
+                  ? 'text-destructive'
+                  : undefined
+              }
+            >
               {content.length ?? '-'} / {EDITOR_LIMIT.content.max}
             </span>
           </FieldDescription>
         </Field>
       </FieldSet>
-      <TagField tags={tags} addTag={addTag} removeTag={removeTag} />
+      <TagField
+        tags={tags}
+        addTag={addTag}
+        removeTag={removeTag}
+        disabled={disabled}
+      />
     </div>
   );
 }

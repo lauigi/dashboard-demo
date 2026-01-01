@@ -4,18 +4,18 @@ export const useShouldShowError = (
   condition1: boolean,
   condition2: boolean,
 ) => {
-  const hasEnteredRef = useRef(false);
+  const hasShowedRef = useRef(false);
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    if (condition1 && condition2 && !hasEnteredRef.current) {
-      hasEnteredRef.current = true;
+    if (condition1 && condition2 && !hasShowedRef.current) {
+      hasShowedRef.current = true;
       setShouldRender(true);
     }
 
-    if (!condition2 && hasEnteredRef.current) {
+    if (!condition2 && hasShowedRef.current) {
       setShouldRender(false);
-      hasEnteredRef.current = false;
+      hasShowedRef.current = false;
     }
   }, [condition1, condition2]);
 

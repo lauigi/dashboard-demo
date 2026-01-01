@@ -17,9 +17,15 @@ interface ITagField {
   tags: Tag[];
   addTag: (tag: Tag) => void;
   removeTag: (tag: Tag) => void;
+  disabled: boolean;
 }
 
-const TagField = memo(function ({ tags, addTag, removeTag }: ITagField) {
+const TagField = memo(function ({
+  tags,
+  addTag,
+  removeTag,
+  disabled = false,
+}: ITagField) {
   const [openTagPop, setOpenTagPop] = useState(false);
   const [presetSearch, setPresetSearch] = useState('');
 
@@ -36,7 +42,12 @@ const TagField = memo(function ({ tags, addTag, removeTag }: ITagField) {
         >
           <PopoverAnchor asChild>
             <PopoverTrigger asChild>
-              <Card className="py-2 w-120 max-w-120">
+              <Card
+                className="py-2 w-120 max-w-120"
+                onClick={(event: MouseEvent) => {
+                  if (disabled) event.preventDefault();
+                }}
+              >
                 <div className="flex px-2 flex-wrap gap-2">
                   {tags.length === 0 && (
                     <CardDescription className="flex items-center h-9.5">
@@ -50,6 +61,7 @@ const TagField = memo(function ({ tags, addTag, removeTag }: ITagField) {
                       onClick={(event: MouseEvent) => {
                         if (openTagPop) return;
                         event.preventDefault();
+                        if (disabled) return;
                         setPresetSearch(tag.name);
                         Promise.resolve().then(() => {
                           setOpenTagPop(true);
@@ -62,6 +74,7 @@ const TagField = memo(function ({ tags, addTag, removeTag }: ITagField) {
                         className="rounded-full"
                         onClick={(event: MouseEvent) => {
                           event.stopPropagation();
+                          if (disabled) return;
                           removeTag(tag);
                         }}
                       >

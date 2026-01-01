@@ -103,7 +103,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
           updateTime: now,
           isDeleted: false,
         };
-        articleList.push(article);
+        articleList.unshift(article);
         return Response.json(article);
       },
     },
