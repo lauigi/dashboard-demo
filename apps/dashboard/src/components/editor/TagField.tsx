@@ -89,12 +89,7 @@ const TagField = memo(function ({
               </Card>
             </PopoverTrigger>
           </PopoverAnchor>
-          <PopoverContent
-            className="w-100 p-2"
-            side="right"
-            align="start"
-            alignOffset={-150}
-          >
+          <PopoverContent className="w-75 p-2" side="bottom" align="end">
             <TagList
               tags={tags}
               addTag={addTag}

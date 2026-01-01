@@ -22,6 +22,7 @@ import { useDebounceCallback } from 'usehooks-ts';
 import NoArticles from '@/components/article/NoArticles';
 import { mineFilterAtom, titleKeywordAtom } from '@/utils/atoms';
 import { ARTICLE_PER_PAGE_LIMIT } from '@/utils/constants';
+import TitleBar from '@/components/TitleBar';
 
 export const Route = createFileRoute('/_authed/')({ component: App });
 
@@ -60,16 +61,17 @@ function App() {
   });
   return (
     <>
-      <div className="sticky z-50 top-12 bg-white">
-        <div className="flex justify-between items-center px-6">
-          <h2 className="my-4 text-3xl font-semibold tracking-tight">
-            Article List
-          </h2>
-          <Button className="mr-auto ml-3" size="sm" asChild>
+      <TitleBar
+        title="Article List"
+        titleAppend={
+          <Button className="md:mr-auto mx-3" size="sm" asChild>
             <Link to="/article/create">
               <FilePlusCorner /> Create
             </Link>
           </Button>
+        }
+      >
+        <div className="flex items-center">
           {status === 'pending' ? (
             <Spinner className="mr-2" />
           ) : (
@@ -85,47 +87,46 @@ function App() {
           <Label {...(status !== 'pending' && { htmlFor: 'only-mine' })}>
             Show only my articles
           </Label>
-          <div className="mx-3 h-8">
-            <Separator orientation="vertical" />
-          </div>
-          <InputGroup className="w-70">
-            <InputGroupInput
-              id="search-title"
-              placeholder="Search by title"
-              value={searchTitle}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                setSearchTitle(event.target.value)
-              }
-              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
-                if (status === 'pending') return;
-                if (e.key === 'Enter') {
-                  handleSearch(searchTitle);
-                }
-              }}
-            />
-            <InputGroupAddon>
-              <SearchIcon />
-            </InputGroupAddon>
-            <InputGroupAddon align="inline-end">
-              {searchTitle && (
-                <InputGroupButton
-                  variant="outline"
-                  className="rounded-full"
-                  size="icon-xs"
-                  onClick={() => {
-                    setSearchTitle('');
-                    handleSearch('');
-                  }}
-                >
-                  <X />
-                </InputGroupButton>
-              )}
-              {status === 'pending' ? <Spinner /> : <Kbd>⏎</Kbd>}
-            </InputGroupAddon>
-          </InputGroup>
         </div>
-        <Separator className="mb-2 shadow" />
-      </div>
+        <div className="mx-3 h-8 sm:block hidden">
+          <Separator orientation="vertical" />
+        </div>
+        <InputGroup className="w-65">
+          <InputGroupInput
+            id="search-title"
+            placeholder="Search by title"
+            value={searchTitle}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setSearchTitle(event.target.value)
+            }
+            onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+              if (status === 'pending') return;
+              if (e.key === 'Enter') {
+                handleSearch(searchTitle);
+              }
+            }}
+          />
+          <InputGroupAddon>
+            <SearchIcon />
+          </InputGroupAddon>
+          <InputGroupAddon align="inline-end">
+            {searchTitle && (
+              <InputGroupButton
+                variant="outline"
+                className="rounded-full"
+                size="icon-xs"
+                onClick={() => {
+                  setSearchTitle('');
+                  handleSearch('');
+                }}
+              >
+                <X />
+              </InputGroupButton>
+            )}
+            {status === 'pending' ? <Spinner /> : <Kbd>⏎</Kbd>}
+          </InputGroupAddon>
+        </InputGroup>
+      </TitleBar>
       <main className="mt-2 px-6 pb-6">
         {status === 'pending' ? (
           <ArticlesLoading />

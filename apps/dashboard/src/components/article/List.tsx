@@ -65,12 +65,14 @@ export default function Articles({
         <ArticleItem
           key={item.key}
           article={allRows[item.index]}
+          data-index={item.index}
+          ref={rowVirtualizer.measureElement}
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
-            height: `${item.size}px`,
+            // height: `${item.size}px`,
             transform: `translateY(${
               item.start - rowVirtualizer.options.scrollMargin
             }px)`,

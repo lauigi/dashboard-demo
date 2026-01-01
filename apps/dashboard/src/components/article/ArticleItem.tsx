@@ -11,7 +11,7 @@ import {
 import { Badge } from '@workspace/ui/components/badge';
 import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
 import { SquarePen } from 'lucide-react';
-import { MouseEvent } from 'react';
+import { MouseEvent, Ref } from 'react';
 import HighlightText from '../HighlightText';
 import { useAtom } from 'jotai';
 import { titleKeywordAtom } from '@/utils/atoms';
@@ -20,16 +20,26 @@ import DeleteButton from './DeleteButton';
 interface IArticle {
   article: Article;
   style: Record<string, string | number>;
+  ref: Ref<Element>;
 }
 export default function ArticleItem({
   article: { id, title, userEmail, tags },
+  ref,
   style,
+  ...props
 }: IArticle) {
   const { user } = useRouteContext({ from: '__root__' });
   const navigate = useNavigate();
   const [titleKeyword] = useAtom(titleKeywordAtom);
   return (
-    <Item variant="outline" className="my-2 flex-nowrap" style={style} asChild>
+    <Item
+      variant="outline"
+      className="my-2 flex-nowrap"
+      ref={ref}
+      style={style}
+      asChild
+      {...props}
+    >
       <Link
         to={`/article/$articleID`}
         params={{
@@ -42,13 +52,13 @@ export default function ArticleItem({
         }}
       >
         <ItemContent>
-          <ItemTitle className="whitespace-nowrap text-ellipsis overflow-hidden h-5 gap-0">
+          <ItemTitle className="lg:h-5 gap-0">
             <HighlightText text={title} keywords={[titleKeyword]} />
           </ItemTitle>
-          <ItemDescription className="line-clamp-1 h-5.5">
+          <ItemDescription className="lg:h-5.5">
             {userEmail}{' '}
             {tags.map(({ name, id }) => (
-              <Badge key={id} variant="secondary" className="ml-2">
+              <Badge key={id} variant="secondary" className="ml-2 mt-2 lg:mt-0">
                 {name}
               </Badge>
             ))}
@@ -56,7 +66,7 @@ export default function ArticleItem({
         </ItemContent>
         {(userEmail === user?.email || user?.isAdmin) && (
           <ItemActions>
-            <ButtonGroup>
+            <ButtonGroup className="flex-wrap sm:flex-nowrap gap-y-2 w-auto! sm:w-fit">
               <Button
                 variant="outline"
                 size="sm"

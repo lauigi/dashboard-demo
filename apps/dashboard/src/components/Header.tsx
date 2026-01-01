@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <>
       <header className="py-1.5 px-4 sticky top-0 z-50 w-full flex items-center bg-gray-800 text-white shadow-lg">
-        <h1 className="ml-4 text-xl font-semibold mr-auto">
+        <h1 className="ml-4 text-sm sm:text-xl font-semibold mr-auto">
           <Link to="/">Another Dashboard</Link>
         </h1>
         {user && (

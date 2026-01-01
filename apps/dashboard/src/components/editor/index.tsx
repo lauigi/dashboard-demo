@@ -115,7 +115,7 @@ export default function Editor({ preset, ref, disabled = false }: IEditor) {
 
   return (
     <div aria-label="Article editor">
-      <FieldSet className="mb-4 min-w-100 max-w-150">
+      <FieldSet className="mb-4 min-w-75 max-w-150">
         <Field>
           <FieldLabel htmlFor="article-editor-title">
             Title *
@@ -148,7 +148,7 @@ export default function Editor({ preset, ref, disabled = false }: IEditor) {
           />
         </Field>
       </FieldSet>
-      <FieldSet className="mb-4 min-w-210">
+      <FieldSet className="mb-4 min-w-75">
         <Field>
           <FieldLabel htmlFor="article-editor-content">
             Content *
