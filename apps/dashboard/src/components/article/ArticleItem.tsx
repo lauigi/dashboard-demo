@@ -10,23 +10,12 @@ import {
 } from '@workspace/ui/components/item';
 import { Badge } from '@workspace/ui/components/badge';
 import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
-import { SquarePen, Trash2 } from 'lucide-react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@workspace/ui/components/alert-dialog';
+import { SquarePen } from 'lucide-react';
 import { MouseEvent } from 'react';
-import DeleteConfirmBtn from './DeleteConfirmBtn';
 import HighlightText from '../HighlightText';
 import { useAtom } from 'jotai';
 import { titleKeywordAtom } from '@/utils/atoms';
+import DeleteButton from './DeleteButton';
 
 interface IArticle {
   article: Article;
@@ -83,30 +72,7 @@ export default function ArticleItem({
                 <SquarePen />
                 Edit
               </Button>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button variant="destructive" size="sm">
-                    <Trash2 />
-                    Delete
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Deleting - {title}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction asChild>
-                      <DeleteConfirmBtn />
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              <DeleteButton articleTitle={title} />
             </ButtonGroup>
           </ItemActions>
         )}
