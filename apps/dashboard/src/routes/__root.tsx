@@ -34,7 +34,6 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
 export const Route = createRootRoute({
   beforeLoad: async () => {
     const user = await fetchUser();
-    console.log(user);
     return {
       user,
     };

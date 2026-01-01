@@ -58,8 +58,10 @@ function App() {
               ))}
             </section>
             <section className="my-4">
-              {data.content.split('\n').map((p) => (
-                <p className="my-1 min-h-[1.5em]">{p}</p>
+              {data.content.split('\n').map((p, index) => (
+                <p key={index} className="my-1 min-h-[1.5em]">
+                  {p}
+                </p>
               ))}
             </section>
           </>
