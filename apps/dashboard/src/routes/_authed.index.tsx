@@ -74,7 +74,7 @@ function App() {
             <Spinner className="mr-2" />
           ) : (
             <Checkbox
-              id="onlyMine"
+              id="only-mine"
               className="mr-2"
               defaultChecked={mineFilter}
               onCheckedChange={(checked: boolean) => {
@@ -82,12 +82,15 @@ function App() {
               }}
             />
           )}
-          <Label htmlFor="onlyMine">Show only my articles</Label>
+          <Label {...(status !== 'pending' && { htmlFor: 'only-mine' })}>
+            Show only my articles
+          </Label>
           <div className="mx-3 h-8">
             <Separator orientation="vertical" />
           </div>
           <InputGroup className="w-70">
             <InputGroupInput
+              id="search-title"
               placeholder="Search by title"
               value={searchTitle}
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -140,7 +143,7 @@ function App() {
                 isFetchingNextPage={isFetchingNextPage}
               />
             )}
-            {hasNextPage && (
+            {hasNextPage ? (
               <Button
                 className="my-2"
                 onClick={() => {
@@ -155,6 +158,10 @@ function App() {
                 ) : (
                   'Load more'
                 )}
+              </Button>
+            ) : (
+              <Button className="my-2" disabled>
+                All loaded
               </Button>
             )}
           </>

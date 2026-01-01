@@ -29,20 +29,21 @@ function App() {
           <h2 className="my-4 text-3xl font-semibold tracking-tight mr-auto">
             {status === 'pending' ? <Spinner /> : data?.title || '-'}
           </h2>
-          {data?.userID === user?.id && (
-            <>
-              <Button size="sm" className="mr-2" asChild>
-                <Link to="/article/$articleID/edit" params={{ articleID }}>
-                  <SquarePen /> Edit
-                </Link>
-              </Button>
-              <DeleteButton articleTitle={data?.title ?? ''} />
-            </>
-          )}
+          {status === 'success' &&
+            (data?.userID === user?.id || user?.isAdmin) && (
+              <>
+                <Button size="sm" className="mr-2" asChild>
+                  <Link to="/article/$articleID/edit" params={{ articleID }}>
+                    <SquarePen /> Edit
+                  </Link>
+                </Button>
+                <DeleteButton articleTitle={data?.title ?? ''} />
+              </>
+            )}
         </div>
         <Separator className="mb-2 shadow" />
       </div>
-      <section className="my-2 mx-14">
+      <section className="mb-8 mx-14">
         {status === 'pending' ? (
           <Spinner className="mx-auto my-4" />
         ) : status === 'error' ? (
@@ -56,7 +57,11 @@ function App() {
                 </Badge>
               ))}
             </section>
-            <section className="my-4">{data.content}</section>
+            <section className="my-4">
+              {data.content.split('\n').map((p) => (
+                <p className="my-1 min-h-[1.5em]">{p}</p>
+              ))}
+            </section>
           </>
         )}
       </section>

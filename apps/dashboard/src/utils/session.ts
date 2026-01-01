@@ -2,7 +2,7 @@ import { useSession } from '@tanstack/react-start/server';
 
 type SessionUser = {
   userEmail: string;
-  userID: string;
+  id: string;
   isAdmin: boolean;
 };
 

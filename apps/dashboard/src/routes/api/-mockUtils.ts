@@ -3,19 +3,7 @@ import { Article, Tag } from '@workspace/api';
 import { formatISO } from 'date-fns';
 import { tz } from '@date-fns/tz';
 
-export const STATUS_CODES = {
-  badRequest: 400,
-  unauthorized: 401,
-  notFound: 404,
-  conflict: 409,
-};
-
-export const GENERAL_MESSAGE = {
-  [STATUS_CODES.badRequest]: 'Bad request',
-  [STATUS_CODES.unauthorized]: 'Unauthorized',
-  [STATUS_CODES.notFound]: 'Not found',
-  [STATUS_CODES.conflict]: 'Conflict',
-};
+export { STATUS_CODES, GENERAL_MESSAGE } from '@/utils/constants';
 
 export const APP_TZ = tz('America/Toronto');
 

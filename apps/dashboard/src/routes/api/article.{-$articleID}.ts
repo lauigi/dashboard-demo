@@ -53,7 +53,10 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
         }
         const session = await useAppSession();
         let article = articleList[articleIndex];
-        if (article.userEmail !== session.data.userEmail) {
+        if (
+          article.userEmail !== session.data.userEmail &&
+          !session.data.isAdmin
+        ) {
           return Response.json(
             { message: GENERAL_MESSAGE[STATUS_CODES.unauthorized] },
             { status: STATUS_CODES.unauthorized },
@@ -98,7 +101,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
             .map(({ id: tagID }) => tagList.find(({ id }) => id === tagID))
             .filter((tag) => !!tag),
           userEmail: session.data.userEmail,
-          userID: session.data.userID!,
+          userID: session.data.id!,
           createTime: now,
           updateTime: now,
           isDeleted: false,

@@ -26,7 +26,7 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
   }
   return {
     email: session.data.userEmail,
-    id: session.data.userID,
+    id: session.data.id,
     isAdmin: session.data.isAdmin,
   };
 });
@@ -34,6 +34,7 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
 export const Route = createRootRoute({
   beforeLoad: async () => {
     const user = await fetchUser();
+    console.log(user);
     return {
       user,
     };

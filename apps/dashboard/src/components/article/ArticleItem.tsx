@@ -54,7 +54,7 @@ export default function ArticleItem({
             ))}
           </ItemDescription>
         </ItemContent>
-        {userEmail === user?.email && (
+        {(userEmail === user?.email || user?.isAdmin) && (
           <ItemActions>
             <ButtonGroup>
               <Button

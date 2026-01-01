@@ -18,8 +18,6 @@ export function Login() {
     onSuccess: async (data) => {
       if (!data?.error) {
         await router.invalidate();
-        router.navigate({ to: '/' });
-        return;
       }
     },
   });
