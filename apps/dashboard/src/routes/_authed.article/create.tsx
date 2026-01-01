@@ -1,7 +1,8 @@
 import Editor, { EditorHandle } from '@/components/editor';
-import { createFileRoute } from '@tanstack/react-router';
+import { ClientOnly, createFileRoute } from '@tanstack/react-router';
 import { Button } from '@workspace/ui/components/button';
 import { Separator } from '@workspace/ui/components/separator';
+import { Spinner } from '@workspace/ui/components/spinner';
 import { BookCheck } from 'lucide-react';
 import { useRef } from 'react';
 
@@ -28,7 +29,10 @@ function App() {
         <Separator className="mb-2 shadow" />
       </div>
       <section className="my-2 mx-14">
-        <Editor ref={editorRef} />
+        {/* To avoid hydration mismatch due to using atomWithStorage */}
+        <ClientOnly fallback={<Spinner className="mx-auto my-4" />}>
+          <Editor ref={editorRef} />
+        </ClientOnly>
       </section>
     </>
   );
