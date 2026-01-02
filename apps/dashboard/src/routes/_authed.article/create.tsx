@@ -52,7 +52,7 @@ function App() {
     <>
       <TitleBar title="Create Article">
         <ResetButton onConfirm={() => editorRef.current?.reset()} />
-        <Button size="sm" onClick={handleSubmit}>
+        <Button size="sm" onClick={handleSubmit} id="publish-button">
           {publishMutation.isPending ? <Spinner /> : <BookCheck />} Publish
         </Button>
       </TitleBar>

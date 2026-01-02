@@ -37,16 +37,19 @@
   "devDependencies": {
     "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "@vitejs/plugin-react": "^5.0.4",
+    "@vitejs/plugin-react": "^5.1.2",
+    "cypress": "^15.8.1",
     "jsdom": "^27.0.0",
     "nitro": "npm:nitro-nightly@latest",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
-    "vitest": "^3.0.5",
+    "vitest": "^4.0.16",
     "web-vitals": "^5.1.0"
   }
 }
