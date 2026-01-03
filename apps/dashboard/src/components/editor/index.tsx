@@ -31,7 +31,7 @@ export interface EditorHandle {
 }
 
 interface IEditor {
-  preset?: ArticleDraft;
+  preset?: Partial<ArticleDraft>;
   ref: Ref<EditorHandle>;
   disabled: boolean;
 }

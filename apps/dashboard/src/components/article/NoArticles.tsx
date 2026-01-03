@@ -21,7 +21,7 @@ export default function NoArticles({ searchTitle }: { searchTitle: string }) {
         <EmptyDescription>
           {searchTitle
             ? `No articles were found with this title. Would you like to create one?`
-            : `You haven&apos;t created any articles yet. Get started by creating
+            : `You haven't created any articles yet. Get started by creating
           your first article.`}
         </EmptyDescription>
       </EmptyHeader>

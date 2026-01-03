@@ -15,6 +15,7 @@ import { Route as AuthedRouteImport } from './routes/_authed'
 import { Route as AuthedIndexRouteImport } from './routes/_authed.index'
 import { Route as ApiTagsRouteImport } from './routes/api/tags'
 import { Route as ApiArticlesRouteImport } from './routes/api/articles'
+import { Route as AuthedTableRouteImport } from './routes/_authed.table'
 import { Route as ApiTagChar123TagIDChar125RouteImport } from './routes/api/tag.{-$tagID}'
 import { Route as ApiArticleChar123ArticleIDChar125RouteImport } from './routes/api/article.{-$articleID}'
 import { Route as AuthedArticleCreateRouteImport } from './routes/_authed.article/create'
@@ -50,6 +51,11 @@ const ApiArticlesRoute = ApiArticlesRouteImport.update({
   path: '/api/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthedTableRoute = AuthedTableRouteImport.update({
+  id: '/table',
+  path: '/table',
+  getParentRoute: () => AuthedRoute,
+} as any)
 const ApiTagChar123TagIDChar125Route =
   ApiTagChar123TagIDChar125RouteImport.update({
     id: '/api/tag/{-$tagID}',
@@ -83,6 +89,7 @@ const AuthedArticleArticleIDEditRoute =
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
+  '/table': typeof AuthedTableRoute
   '/api/articles': typeof ApiArticlesRoute
   '/api/tags': typeof ApiTagsRoute
   '/': typeof AuthedIndexRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
+  '/table': typeof AuthedTableRoute
   '/api/articles': typeof ApiArticlesRoute
   '/api/tags': typeof ApiTagsRoute
   '/': typeof AuthedIndexRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/_authed': typeof AuthedRouteWithChildren
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
+  '/_authed/table': typeof AuthedTableRoute
   '/api/articles': typeof ApiArticlesRoute
   '/api/tags': typeof ApiTagsRoute
   '/_authed/': typeof AuthedIndexRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/login'
     | '/logout'
+    | '/table'
     | '/api/articles'
     | '/api/tags'
     | '/'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
   to:
     | '/login'
     | '/logout'
+    | '/table'
     | '/api/articles'
     | '/api/tags'
     | '/'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/_authed'
     | '/login'
     | '/logout'
+    | '/_authed/table'
     | '/api/articles'
     | '/api/tags'
     | '/_authed/'
@@ -212,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authed/table': {
+      id: '/_authed/table'
+      path: '/table'
+      fullPath: '/table'
+      preLoaderRoute: typeof AuthedTableRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/api/tag/{-$tagID}': {
       id: '/api/tag/{-$tagID}'
       path: '/api/tag/{-$tagID}'
@@ -251,6 +270,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthedRouteChildren {
+  AuthedTableRoute: typeof AuthedTableRoute
   AuthedIndexRoute: typeof AuthedIndexRoute
   AuthedArticleCreateRoute: typeof AuthedArticleCreateRoute
   AuthedArticleArticleIDEditRoute: typeof AuthedArticleArticleIDEditRoute
@@ -258,6 +278,7 @@ interface AuthedRouteChildren {
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedTableRoute: AuthedTableRoute,
   AuthedIndexRoute: AuthedIndexRoute,
   AuthedArticleCreateRoute: AuthedArticleCreateRoute,
   AuthedArticleArticleIDEditRoute: AuthedArticleArticleIDEditRoute,

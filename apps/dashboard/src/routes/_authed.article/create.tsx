@@ -13,9 +13,11 @@ import { Spinner } from '@workspace/ui/components/spinner';
 import { BookCheck } from 'lucide-react';
 import { useCallback, useRef } from 'react';
 import { toast } from 'sonner';
+import { z } from 'zod/mini';
 
 export const Route = createFileRoute('/_authed/article/create')({
   component: App,
+  validateSearch: z.object({ presetTitle: z.optional(z.string()) }),
 });
 
 function App() {
@@ -43,7 +45,6 @@ function App() {
   });
   const handleSubmit = () => {
     const draft = editorRef.current?.getData();
-    console.log(draft);
     if (draft) {
       publishMutation.mutate(draft);
     }

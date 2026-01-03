@@ -46,10 +46,9 @@ export default function TagList({
 }: ITagList) {
   const [searchingTagName, setSearchingTagName] = useState(presetSearch);
   const [debouncedSearchingTagName, setDebouncedSearchingTabName] =
-    useDebounceValue(searchingTagName, 500, { leading: true });
+    useDebounceValue(searchingTagName, 500);
   const fetchTags = useCallback(
     async ({ pageParam: lastID }: { pageParam: string }) => {
-      console.log('call fetch tags', debouncedSearchingTagName);
       const response = await defaultAPI.tagsGet({
         lastID,
         limit: TAG_PER_PAGE_LIMIT,
@@ -104,13 +103,11 @@ export default function TagList({
     if (!lastItem) {
       return;
     }
-    console.log('call fetch effect');
     if (
       lastItem.index >= allRows.length - 1 &&
       hasNextPage &&
       !isFetchingNextPage
     ) {
-      console.log('call fetch next');
       fetchNextPage();
     }
   }, [

@@ -56,7 +56,6 @@ function App() {
       return;
     }
     const draft = editorRef.current?.getData();
-    console.log(draft);
     if (draft) {
       publishMutation.mutate(draft);
     }

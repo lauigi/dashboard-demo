@@ -137,33 +137,35 @@ function App() {
             {data?.pages[0].articles.length === 0 && !hasNextPage ? (
               <NoArticles searchTitle={searchTitle} />
             ) : (
-              <Articles
-                list={data.pages}
-                fetchNextPage={fetchNextPage}
-                hasNextPage={hasNextPage}
-                isFetchingNextPage={isFetchingNextPage}
-              />
-            )}
-            {hasNextPage ? (
-              <Button
-                className="my-2"
-                onClick={() => {
-                  if (!isFetchingNextPage) fetchNextPage();
-                }}
-              >
-                {isFetchingNextPage ? (
-                  <>
-                    <Spinner />
-                    Loading
-                  </>
+              <>
+                <Articles
+                  list={data.pages}
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                />
+                {hasNextPage ? (
+                  <Button
+                    className="my-2"
+                    onClick={() => {
+                      if (!isFetchingNextPage) fetchNextPage();
+                    }}
+                  >
+                    {isFetchingNextPage ? (
+                      <>
+                        <Spinner />
+                        Loading
+                      </>
+                    ) : (
+                      'Load more'
+                    )}
+                  </Button>
                 ) : (
-                  'Load more'
+                  <Button className="my-2" disabled>
+                    All loaded
+                  </Button>
                 )}
-              </Button>
-            ) : (
-              <Button className="my-2" disabled>
-                All loaded
-              </Button>
+              </>
             )}
           </>
         )}

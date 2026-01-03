@@ -16,6 +16,8 @@ import { DefaultCatchBoundary } from '@/components/DefaultCatchBoundary';
 import { NotFound } from '@/components/NotFound';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@workspace/ui/components/sonner';
+import { useDarkMode } from 'usehooks-ts';
+import { cn } from '@workspace/ui/lib/utils';
 
 const queryClient = new QueryClient();
 
@@ -80,12 +82,13 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const dark = useDarkMode();
   return (
     <html lang="en">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className={cn(dark.isDarkMode && 'dark')}>
         <Toaster position="top-center" />
         <Header />
         {children}
