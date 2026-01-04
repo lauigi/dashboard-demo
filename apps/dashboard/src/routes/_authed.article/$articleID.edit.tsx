@@ -1,8 +1,3 @@
-import ResetButton from '@/components/article/ResetButton';
-import TitleBar from '@/components/TitleBar';
-import Editor, { ArticleDraft, EditorHandle } from '@/components/editor';
-import { GENERAL_MESSAGE, STATUS_CODES } from '@/utils/constants';
-import { authedAPI, defaultAPI } from '@/utils/fetcher';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { Button } from '@workspace/ui/components/button';
@@ -10,6 +5,12 @@ import { Spinner } from '@workspace/ui/components/spinner';
 import { BookCheck } from 'lucide-react';
 import { useCallback, useRef } from 'react';
 import { toast } from 'sonner';
+
+import ResetButton from '@/components/article/ResetButton';
+import Editor, { ArticleDraft, EditorHandle } from '@/components/editor';
+import TitleBar from '@/components/TitleBar';
+import { GENERAL_MESSAGE, STATUS_CODES } from '@/utils/constants';
+import { authedAPI, defaultAPI } from '@/utils/fetcher';
 
 export const Route = createFileRoute('/_authed/article/$articleID/edit')({
   component: App,
@@ -21,7 +22,7 @@ function App() {
   const queryClient = useQueryClient();
   const { status, data, error } = useQuery({
     queryKey: ['article', articleID],
-    queryFn: async () => {
+    async queryFn() {
       const response = await defaultAPI.articleIdGet({ id: articleID });
       return response;
     },
@@ -36,7 +37,7 @@ function App() {
       });
       return response;
     }, []),
-    onSuccess: async ({ id }) => {
+    async onSuccess({ id }) {
       await queryClient.invalidateQueries({ queryKey: ['article', articleID] });
       navigate({
         to: '/article/$articleID',
@@ -46,7 +47,7 @@ function App() {
       });
       editorRef.current?.reset();
     },
-    onError: (error) => {
+    onError(error) {
       toast.error(error.message);
     },
   });
@@ -55,11 +56,13 @@ function App() {
       toast.error(GENERAL_MESSAGE[STATUS_CODES.unauthorized]);
       return;
     }
+
     const draft = editorRef.current?.getData();
     if (draft) {
       publishMutation.mutate(draft);
     }
   };
+
   return (
     <>
       <TitleBar title="Edit Article">

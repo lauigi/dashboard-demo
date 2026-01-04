@@ -1,9 +1,21 @@
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Tag } from '@workspace/api';
 import { Button } from '@workspace/ui/components/button';
 import { Card } from '@workspace/ui/components/card';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@workspace/ui/components/input-group';
 import { Item, ItemGroup } from '@workspace/ui/components/item';
 import { Skeleton } from '@workspace/ui/components/skeleton';
+import { Spinner } from '@workspace/ui/components/spinner';
 import { cn } from '@workspace/ui/lib/utils';
 import { CircleCheck, CirclePlus, SearchIcon, X } from 'lucide-react';
 import {
@@ -14,22 +26,12 @@ import {
   useRef,
   useState,
 } from 'react';
-import HighlightText from '../HighlightText';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from '@workspace/ui/components/input-group';
-import { Spinner } from '@workspace/ui/components/spinner';
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
-import { authedAPI, defaultAPI } from '@/utils/fetcher';
-import { TAG_PER_PAGE_LIMIT } from '@/utils/constants';
 import { useDebounceValue } from 'usehooks-ts';
+
+import { TAG_PER_PAGE_LIMIT } from '@/utils/constants';
+import { authedAPI, defaultAPI } from '@/utils/fetcher';
+
+import HighlightText from '../HighlightText';
 
 interface ITagList {
   tags: Tag[];
@@ -103,6 +105,7 @@ export default function TagList({
     if (!lastItem) {
       return;
     }
+
     if (
       lastItem.index >= allRows.length - 1 &&
       hasNextPage &&
@@ -203,7 +206,11 @@ export default function TagList({
                         href="#"
                         onClick={(event: MouseEvent<HTMLAnchorElement>) => {
                           event.preventDefault();
-                          isSelected ? removeTag(tag) : addTag(tag);
+                          if (isSelected) {
+                            removeTag(tag);
+                          } else {
+                            addTag(tag);
+                          }
                         }}
                         className={cn(
                           isSelected &&

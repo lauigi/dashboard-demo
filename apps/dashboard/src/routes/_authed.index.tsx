@@ -1,28 +1,29 @@
-import Articles from '@/components/article/List';
-import ArticlesLoading from '@/components/article/Loading';
-import { defaultAPI } from '@/utils/fetcher';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Button } from '@workspace/ui/components/button';
-import { Spinner } from '@workspace/ui/components/spinner';
 import { Checkbox } from '@workspace/ui/components/checkbox';
-import { Label } from '@workspace/ui/components/label';
-import { Kbd } from '@workspace/ui/components/kbd';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from '@workspace/ui/components/input-group';
-import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
-import { useAtom } from 'jotai';
+import { Kbd } from '@workspace/ui/components/kbd';
+import { Label } from '@workspace/ui/components/label';
 import { Separator } from '@workspace/ui/components/separator';
-import { X, FilePlusCorner, SearchIcon } from 'lucide-react';
+import { Spinner } from '@workspace/ui/components/spinner';
+import { useAtom } from 'jotai';
+import { FilePlusCorner, SearchIcon, X } from 'lucide-react';
+import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
 import { useDebounceCallback } from 'usehooks-ts';
+
+import Articles from '@/components/article/List';
+import ArticlesLoading from '@/components/article/Loading';
 import NoArticles from '@/components/article/NoArticles';
+import TitleBar from '@/components/TitleBar';
 import { mineFilterAtom, titleKeywordAtom } from '@/utils/atoms';
 import { ARTICLE_PER_PAGE_LIMIT } from '@/utils/constants';
-import TitleBar from '@/components/TitleBar';
+import { defaultAPI } from '@/utils/fetcher';
 
 export const Route = createFileRoute('/_authed/')({ component: App });
 

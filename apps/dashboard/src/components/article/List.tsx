@@ -1,12 +1,14 @@
+import { useElementScrollRestoration } from '@tanstack/react-router';
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import { ArticlesGet200Response } from '@workspace/api';
 import { ItemGroup } from '@workspace/ui/components/item';
-import ArticleItem from './ArticleItem';
 import { useEffect, useRef } from 'react';
-import { useWindowVirtualizer } from '@tanstack/react-virtual';
-import { useElementScrollRestoration } from '@tanstack/react-router';
+
+import ArticleItem from './ArticleItem';
 
 interface IArticles {
   list: ArticlesGet200Response[];
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   fetchNextPage: Function;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
@@ -37,6 +39,7 @@ export default function Articles({
     if (!lastItem) {
       return;
     }
+
     if (
       lastItem.index >= allRows.length - 1 &&
       hasNextPage &&
@@ -72,7 +75,7 @@ export default function Articles({
             top: 0,
             left: 0,
             width: '100%',
-            // height: `${item.size}px`,
+            // Height: `${item.size}px`,
             transform: `translateY(${
               item.start - rowVirtualizer.options.scrollMargin
             }px)`,

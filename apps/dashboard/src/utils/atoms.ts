@@ -1,6 +1,7 @@
-import { ArticleDraft } from '@/components/editor';
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+
+import { ArticleDraft } from '@/components/editor';
 
 export const mineFilterAtom = atomWithStorage('mineFilter', false, undefined, {
   getOnInit: true,

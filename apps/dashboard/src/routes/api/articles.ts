@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { articleList, delay } from './-mockUtils';
 import { ArticlesGet200Response } from '@workspace/api';
+
+import { articleList, delay } from './-mockUtils';
 
 export const Route = createFileRoute('/api/articles')({
   server: {
     handlers: {
-      GET: async ({ request }) => {
+      async GET({ request }) {
         await delay(0.5);
         const url = new URL(request.url);
         const limit = Number(url.searchParams.get('limit'));
@@ -19,17 +20,20 @@ export const Route = createFileRoute('/api/articles')({
             0,
           );
         }
+
         let targetArticles = [...articleList];
         if (searchTitle) {
           targetArticles = articleList.filter(({ title }) =>
             title.includes(searchTitle),
           );
         }
+
         if (author) {
           targetArticles = targetArticles.filter(
             ({ userEmail }) => userEmail === author,
           );
         }
+
         const endingIndex = limit ? startIndex + limit : targetArticles.length;
         const currentPageOfArticles = targetArticles.slice(
           startIndex,

@@ -1,21 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { delay, GENERAL_MESSAGE, STATUS_CODES, tagList } from './-mockUtils';
-import { Tag, TagPostRequest } from '@workspace/api';
-import { useAppSession } from '@/utils/session';
 import { faker } from '@faker-js/faker';
+import { createFileRoute } from '@tanstack/react-router';
+import { Tag, TagPostRequest } from '@workspace/api';
+
+import { useAppSession } from '@/utils/session';
+
+import { delay, GENERAL_MESSAGE, STATUS_CODES, tagList } from './-mockUtils';
 
 export const Route = createFileRoute('/api/tag/{-$tagID}')({
   server: {
     handlers: {
-      PUT: async ({ request, params }) => {
+      async PUT({ request, params }) {
         await delay(0.5);
-        const tagID = params.tagID;
+        const { tagID } = params;
         if (!tagID) {
           return Response.json(
             { message: GENERAL_MESSAGE[STATUS_CODES.badRequest] },
             { status: STATUS_CODES.badRequest },
           );
         }
+
         const tag = tagList.find(({ id }) => id === tagID);
         if (!tag) {
           return Response.json(
@@ -23,6 +26,7 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
             { status: STATUS_CODES.notFound },
           );
         }
+
         const session = await useAppSession();
         if (!session.data.isAdmin) {
           return Response.json(
@@ -30,6 +34,7 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
             { status: STATUS_CODES.unauthorized },
           );
         }
+
         const { name } = (await request.json()) as TagPostRequest;
 
         if (!name) {
@@ -38,10 +43,11 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
             { status: STATUS_CODES.badRequest },
           );
         }
+
         tag.name = name;
         return Response.json(tag);
       },
-      POST: async ({ request }) => {
+      async POST({ request }) {
         await delay(0.5);
         const session = await useAppSession();
         if (!session.data.userEmail) {
@@ -50,6 +56,7 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
             { status: STATUS_CODES.unauthorized },
           );
         }
+
         const { name } = (await request.json()) as TagPostRequest;
         if (!name) {
           return Response.json(
@@ -57,12 +64,14 @@ export const Route = createFileRoute('/api/tag/{-$tagID}')({
             { status: STATUS_CODES.badRequest },
           );
         }
+
         if (tagList.find(({ name: existingName }) => name === existingName)) {
           return Response.json(
             { message: GENERAL_MESSAGE[STATUS_CODES.conflict] },
             { status: STATUS_CODES.conflict },
           );
         }
+
         const tag: Tag = {
           name,
           id: faker.string.nanoid(),

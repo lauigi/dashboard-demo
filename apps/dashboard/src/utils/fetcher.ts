@@ -9,8 +9,8 @@ const config = new Configuration({
   basePath: '/api',
   middleware: [
     {
-      post: async (context: ResponseContext) => {
-        const response = context.response;
+      async post(context: ResponseContext) {
+        const { response } = context;
         if (!response.ok) {
           const errorBody = await response.clone().json();
           console.error('API Error:', errorBody);

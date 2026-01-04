@@ -1,21 +1,22 @@
-import { useRouter } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
 import { Button } from '@workspace/ui/components/button';
 import {
   Card,
+  CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
-  CardContent,
 } from '@workspace/ui/components/card';
-import { loginFn } from '@/routes/_authed';
 import { Spinner } from '@workspace/ui/components/spinner';
+
+import { loginFn } from '@/routes/_authed';
 
 export function Login() {
   const router = useRouter();
   const loginMutation = useMutation({
     mutationFn: loginFn,
-    onSuccess: async (data) => {
+    async onSuccess(data) {
       if (!data?.error) {
         await router.invalidate();
       }

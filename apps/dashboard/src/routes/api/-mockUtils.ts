@@ -1,9 +1,9 @@
+import { tz } from '@date-fns/tz';
 import { faker } from '@faker-js/faker';
 import { Article, Tag } from '@workspace/api';
 import { formatISO } from 'date-fns';
-import { tz } from '@date-fns/tz';
 
-export { STATUS_CODES, GENERAL_MESSAGE } from '@/utils/constants';
+export { GENERAL_MESSAGE, STATUS_CODES } from '@/utils/constants';
 
 export const APP_TZ = tz('America/Toronto');
 
@@ -53,6 +53,7 @@ export const articleList = Array.from({ length: 1000 }, () =>
   generateArticle(),
 );
 
-export const delay = (s: number) => {
-  return new Promise((resolve) => setTimeout(resolve, s * 1000));
-};
+export const delay = (s: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, s * 1000);
+  });

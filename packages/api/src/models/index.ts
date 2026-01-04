@@ -1,5 +1,5 @@
-/* tslint:disable */
-/* eslint-disable */
+/* Tslint:disable */
+
 export * from './Article';
 export * from './ArticlePostRequest';
 export * from './ArticlePostRequestTagsInner';

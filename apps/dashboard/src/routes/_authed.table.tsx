@@ -1,5 +1,3 @@
-import ArticlesLoading from '@/components/article/Loading';
-import { defaultAPI } from '@/utils/fetcher';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { Article, Tag } from '@workspace/api';
@@ -7,13 +5,16 @@ import { Badge } from '@workspace/ui/components/badge';
 import DataTable, { Column } from '@workspace/ui/components/my-data-table';
 import { formatDate } from 'date-fns';
 
+import ArticlesLoading from '@/components/article/Loading';
+import { defaultAPI } from '@/utils/fetcher';
+
 export const Route = createFileRoute('/_authed/table')({ component: App });
 
 export default function App() {
   const { status, data, error } = useQuery({
     queryKey: ['allArticles'],
-    queryFn: async () => {
-      return await defaultAPI.articlesGet();
+    async queryFn() {
+      return defaultAPI.articlesGet();
     },
   });
 

@@ -1,23 +1,23 @@
+import { TanStackDevtools } from '@tanstack/react-devtools';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
+  createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
-  createRootRoute,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { TanStackDevtools } from '@tanstack/react-devtools';
-
-import Header from '../components/Header';
-
-import appCss from '../styles.css?url';
 import { createServerFn } from '@tanstack/react-start';
-import { useAppSession } from '@/utils/session';
+import { Toaster } from '@workspace/ui/components/sonner';
+import { cn } from '@workspace/ui/lib/utils';
+import { useDarkMode } from 'usehooks-ts';
+
 import { DefaultCatchBoundary } from '@/components/DefaultCatchBoundary';
 import { NotFound } from '@/components/NotFound';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from '@workspace/ui/components/sonner';
-import { useDarkMode } from 'usehooks-ts';
-import { cn } from '@workspace/ui/lib/utils';
+import { useAppSession } from '@/utils/session';
+
+import Header from '../components/Header';
+import appCss from '../styles.css?url';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +26,7 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
   if (!session.data.userEmail) {
     return null;
   }
+
   return {
     email: session.data.userEmail,
     id: session.data.id,
@@ -34,7 +35,7 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
 });
 
 export const Route = createRootRoute({
-  beforeLoad: async () => {
+  async beforeLoad() {
     const user = await fetchUser();
     return {
       user,
@@ -60,7 +61,7 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  errorComponent: (props) => {
+  errorComponent(props) {
     return (
       <RootDocument>
         <DefaultCatchBoundary {...props} />

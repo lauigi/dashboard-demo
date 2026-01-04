@@ -1,4 +1,4 @@
-/* tslint:disable */
-/* eslint-disable */
+/* Tslint:disable */
+
 export * from './AuthedApi';
 export * from './DefaultApi';

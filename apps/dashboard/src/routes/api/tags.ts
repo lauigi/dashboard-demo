@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { TagsGet200Response } from '@workspace/api';
+
 import { delay, tagList } from './-mockUtils';
 
 export const Route = createFileRoute('/api/tags')({
   server: {
     handlers: {
-      GET: async ({ request }) => {
+      async GET({ request }) {
         await delay(0.5);
         const url = new URL(request.url);
         const limit = Number(url.searchParams.get('limit'));
@@ -18,10 +19,12 @@ export const Route = createFileRoute('/api/tags')({
             0,
           );
         }
+
         let targetTags = [...tagList];
         if (searchQuery) {
           targetTags = tagList.filter(({ name }) => name.includes(searchQuery));
         }
+
         const endingIndex = limit ? startIndex + limit : targetTags.length;
         const currentPageOfTags = targetTags.slice(startIndex, endingIndex);
         const res: TagsGet200Response = {

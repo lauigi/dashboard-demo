@@ -1,4 +1,4 @@
-/* tslint:disable */
+/* Tslint:disable */
 /* eslint-disable */
 export * from './runtime';
 export * from './apis/index';

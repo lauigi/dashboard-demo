@@ -1,14 +1,14 @@
+import { Link } from '@tanstack/react-router';
+import { Button } from '@workspace/ui/components/button';
 import {
-  EmptyHeader,
   Empty,
-  EmptyMedia,
-  EmptyDescription,
-  EmptyTitle,
   EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
 } from '@workspace/ui/components/empty';
 import { FilePlusCorner } from 'lucide-react';
-import { Button } from '@workspace/ui/components/button';
-import { Link } from '@tanstack/react-router';
 
 export default function NoArticles({ searchTitle }: { searchTitle: string }) {
   return (

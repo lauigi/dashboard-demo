@@ -13,7 +13,7 @@ import { Button } from '@workspace/ui/components/button';
 import { RotateCcw } from 'lucide-react';
 
 interface IResetButton {
-  onConfirm: Function;
+  onConfirm: () => void;
 }
 export default function ResetButton({ onConfirm }: IResetButton) {
   return (

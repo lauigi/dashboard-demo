@@ -13,3 +13,4 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 sideEffectsCache: false
+ignoreWorkspaceRootCheck: true

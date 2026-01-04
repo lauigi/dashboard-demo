@@ -1,5 +1,15 @@
 import { Article, Tag } from '@workspace/api';
 import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  FieldSet,
+} from '@workspace/ui/components/field';
+import { Input } from '@workspace/ui/components/input';
+import { Textarea } from '@workspace/ui/components/textarea';
+import { useAtom } from 'jotai';
+import {
   ChangeEvent,
   Ref,
   useCallback,
@@ -7,21 +17,13 @@ import {
   useMemo,
   useState,
 } from 'react';
-import {
-  FieldLabel,
-  Field,
-  FieldError,
-  FieldSet,
-  FieldDescription,
-} from '@workspace/ui/components/field';
-import { Textarea } from '@workspace/ui/components/textarea';
-import { Input } from '@workspace/ui/components/input';
-import TagField from './TagField';
-import { EDITOR_LIMIT, TAGS_LENGTH_LIMIT } from '@/utils/constants';
 import { toast } from 'sonner';
-import { useAtom } from 'jotai';
-import { draftAtom } from '@/utils/atoms';
 import * as z from 'zod/mini';
+
+import { draftAtom } from '@/utils/atoms';
+import { EDITOR_LIMIT, TAGS_LENGTH_LIMIT } from '@/utils/constants';
+
+import TagField from './TagField';
 
 export type ArticleDraft = Pick<Article, 'title' | 'content' | 'tags'>;
 
@@ -69,17 +71,17 @@ export default function Editor({ preset, ref, disabled = false }: IEditor) {
   const [showContentError, setShowContentError] = useState(false);
 
   useImperativeHandle(ref, () => ({
-    getData: () => {
+    getData() {
       if (contentValidation.success && titleValidation.success) {
         return { title, content, tags };
-      } else {
-        // Force to show possible errors
-        setShowTitleError(true);
-        setShowContentError(true);
-        toast.error('Please resolve the issue(s) before publishing.');
       }
+
+      // Force to show possible errors
+      setShowTitleError(true);
+      setShowContentError(true);
+      toast.error('Please resolve the issue(s) before publishing.');
     },
-    reset: () => {
+    reset() {
       setShowTitleError(false);
       setShowContentError(false);
       setTitle('');
@@ -95,6 +97,7 @@ export default function Editor({ preset, ref, disabled = false }: IEditor) {
         toast.warning('Maximum number of tags reached');
         return;
       }
+
       setTags((vals) => {
         if (vals.find(({ id }) => id === tag.id)) return vals;
         const newTags = [...vals, tag];

@@ -1,7 +1,3 @@
-import ResetButton from '@/components/article/ResetButton';
-import TitleBar from '@/components/TitleBar';
-import Editor, { ArticleDraft, EditorHandle } from '@/components/editor';
-import { authedAPI } from '@/utils/fetcher';
 import { useMutation } from '@tanstack/react-query';
 import {
   ClientOnly,
@@ -14,6 +10,11 @@ import { BookCheck } from 'lucide-react';
 import { useCallback, useRef } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod/mini';
+
+import ResetButton from '@/components/article/ResetButton';
+import Editor, { ArticleDraft, EditorHandle } from '@/components/editor';
+import TitleBar from '@/components/TitleBar';
+import { authedAPI } from '@/utils/fetcher';
 
 export const Route = createFileRoute('/_authed/article/create')({
   component: App,
@@ -30,7 +31,7 @@ function App() {
       });
       return response;
     }, []),
-    onSuccess: ({ id }) => {
+    onSuccess({ id }) {
       navigate({
         to: '/article/$articleID',
         params: {
@@ -39,7 +40,7 @@ function App() {
       });
       editorRef.current?.reset();
     },
-    onError: (error) => {
+    onError(error) {
       toast.error(error.message);
     },
   });
@@ -49,6 +50,7 @@ function App() {
       publishMutation.mutate(draft);
     }
   };
+
   return (
     <>
       <TitleBar title="Create Article">

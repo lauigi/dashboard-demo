@@ -1,12 +1,13 @@
-import DeleteButton from '@/components/article/DeleteButton';
-import { defaultAPI } from '@/utils/fetcher';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { Badge } from '@workspace/ui/components/badge';
 import { Button } from '@workspace/ui/components/button';
 import { Spinner } from '@workspace/ui/components/spinner';
 import { SquarePen } from 'lucide-react';
-import { Badge } from '@workspace/ui/components/badge';
+
+import DeleteButton from '@/components/article/DeleteButton';
 import TitleBar from '@/components/TitleBar';
+import { defaultAPI } from '@/utils/fetcher';
 
 export const Route = createFileRoute('/_authed/article/$articleID/')({
   component: App,
@@ -17,7 +18,7 @@ function App() {
   const { articleID } = Route.useParams();
   const { status, data, error } = useQuery({
     queryKey: ['article', articleID],
-    queryFn: async () => {
+    async queryFn() {
       const response = await defaultAPI.articleIdGet({ id: articleID });
       return response;
     },

@@ -1,26 +1,29 @@
+import { useRouteContext } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Article } from '@workspace/api';
+import { Badge } from '@workspace/ui/components/badge';
 import { Button } from '@workspace/ui/components/button';
 import { ButtonGroup } from '@workspace/ui/components/button-group';
 import {
   Item,
-  ItemContent,
-  ItemTitle,
   ItemActions,
+  ItemContent,
   ItemDescription,
+  ItemTitle,
 } from '@workspace/ui/components/item';
-import { Badge } from '@workspace/ui/components/badge';
-import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
+import { useAtom } from 'jotai';
 import { SquarePen } from 'lucide-react';
 import { MouseEvent, Ref } from 'react';
-import HighlightText from '../HighlightText';
-import { useAtom } from 'jotai';
+
 import { titleKeywordAtom } from '@/utils/atoms';
+
+import HighlightText from '../HighlightText';
 import DeleteButton from './DeleteButton';
 
 interface IArticle {
   article: Article;
   style: Record<string, string | number>;
-  ref: Ref<Element>;
+  ref?: Ref<HTMLDivElement>;
 }
 export default function ArticleItem({
   article: { id, title, userEmail, tags },

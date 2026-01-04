@@ -1,7 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
+
 import { Login } from '~/components/Login';
 import { useAppSession } from '~/utils/session';
+
 import { userList } from './api/-mockUtils';
 
 export const loginFn = createServerFn({ method: 'POST' })
@@ -13,6 +15,7 @@ export const loginFn = createServerFn({ method: 'POST' })
         message: 'placeholder',
       };
     }
+
     const user = userList.find(({ userEmail }) => userEmail === data.email);
     if (!user) {
       return {
@@ -20,6 +23,7 @@ export const loginFn = createServerFn({ method: 'POST' })
         message: 'User not found',
       };
     }
+
     // Check the email and password here
     // But for the demo, all allow through
     const session = await useAppSession();
@@ -29,12 +33,12 @@ export const loginFn = createServerFn({ method: 'POST' })
   });
 
 export const Route = createFileRoute('/_authed')({
-  beforeLoad: ({ context }) => {
+  beforeLoad({ context }) {
     if (!context.user) {
       throw new Error('Not authenticated');
     }
   },
-  errorComponent: ({ error }) => {
+  errorComponent({ error }) {
     if (error.message === 'Not authenticated') {
       return <Login />;
     }

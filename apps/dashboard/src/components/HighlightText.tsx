@@ -14,6 +14,7 @@ export default function HighlightText({
   if (!keywords || keywords.length === 0 || !text) {
     return <>{text}</>;
   }
+
   const validWords = keywords
     .filter((word) => word && word.trim())
     .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));

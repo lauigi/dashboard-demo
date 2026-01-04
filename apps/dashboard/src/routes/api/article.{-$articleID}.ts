@@ -1,4 +1,10 @@
+import { faker } from '@faker-js/faker';
 import { createFileRoute } from '@tanstack/react-router';
+import { Article, ArticlePostRequest } from '@workspace/api';
+import { formatISO } from 'date-fns';
+
+import { useAppSession } from '@/utils/session';
+
 import {
   APP_TZ,
   articleList,
@@ -7,23 +13,20 @@ import {
   STATUS_CODES,
   tagList,
 } from './-mockUtils';
-import { Article, ArticlePostRequest } from '@workspace/api';
-import { useAppSession } from '@/utils/session';
-import { faker } from '@faker-js/faker';
-import { formatISO } from 'date-fns';
 
 export const Route = createFileRoute('/api/article/{-$articleID}')({
   server: {
     handlers: {
-      GET: async ({ params }) => {
+      async GET({ params }) {
         await delay(0.5);
-        const articleID = params.articleID;
+        const { articleID } = params;
         if (!articleID) {
           return Response.json(
             { message: GENERAL_MESSAGE[STATUS_CODES.badRequest] },
             { status: STATUS_CODES.badRequest },
           );
         }
+
         const article = articleList.find(({ id }) => id === articleID);
         if (!article) {
           return Response.json(
@@ -31,17 +34,19 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
             { status: STATUS_CODES.notFound },
           );
         }
+
         return Response.json(article);
       },
-      PUT: async ({ request, params }) => {
+      async PUT({ request, params }) {
         await delay(0.5);
-        const articleID = params.articleID;
+        const { articleID } = params;
         if (!articleID) {
           return Response.json(
             { message: GENERAL_MESSAGE[STATUS_CODES.badRequest] },
             { status: STATUS_CODES.badRequest },
           );
         }
+
         const articleIndex = articleList.findIndex(
           ({ id }) => id === articleID,
         );
@@ -51,6 +56,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
             { status: STATUS_CODES.notFound },
           );
         }
+
         const session = await useAppSession();
         let article = articleList[articleIndex];
         if (
@@ -62,6 +68,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
             { status: STATUS_CODES.unauthorized },
           );
         }
+
         const { title, content, tags } =
           (await request.json()) as ArticlePostRequest;
         if (!title || !content) {
@@ -70,18 +77,19 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
             { status: STATUS_CODES.badRequest },
           );
         }
+
         article = {
           ...article,
           title,
           content,
           tags: tags
             .map(({ id: tagID }) => tagList.find(({ id }) => id === tagID))
-            .filter((tag) => !!tag),
+            .filter((tag) => Boolean(tag)),
         };
         articleList.splice(articleIndex, 1, article);
         return Response.json(article);
       },
-      POST: async ({ request }) => {
+      async POST({ request }) {
         await delay(0.5);
         const session = await useAppSession();
         if (!session.data.userEmail) {
@@ -90,6 +98,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
             { status: STATUS_CODES.unauthorized },
           );
         }
+
         const { title, content, tags } =
           (await request.json()) as ArticlePostRequest;
         const now = formatISO(Date.now(), { in: APP_TZ });
@@ -99,7 +108,7 @@ export const Route = createFileRoute('/api/article/{-$articleID}')({
           content,
           tags: tags
             .map(({ id: tagID }) => tagList.find(({ id }) => id === tagID))
-            .filter((tag) => !!tag),
+            .filter((tag) => Boolean(tag)),
           userEmail: session.data.userEmail,
           userID: session.data.id!,
           createTime: now,

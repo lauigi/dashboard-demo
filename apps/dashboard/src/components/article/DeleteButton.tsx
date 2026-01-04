@@ -11,6 +11,7 @@ import {
 } from '@workspace/ui/components/alert-dialog';
 import { Button } from '@workspace/ui/components/button';
 import { Trash2 } from 'lucide-react';
+
 import DeleteConfirmButton from './DeleteConfirmButton';
 
 interface IDeleteButton {

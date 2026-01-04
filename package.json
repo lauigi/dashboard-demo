@@ -9,17 +9,26 @@
     "dashboard:preview": "pnpm --filter dashboard preview",
     "dashboard:test": "pnpm --filter dashboard test",
     "prepare": "husky",
-    "test": "xo"
+    "lint": "eslint --fix"
   },
   "author": "Lauigi <glbrt.liu@gmail.com>",
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-xo": "^0.49.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "3.7.4",
-    "xo": "^1.2.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.51.0"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
   }
 }
