@@ -168,7 +168,7 @@ export default function Editor({ preset, ref, disabled = false }: IEditor) {
             maxLength={EDITOR_LIMIT.content.max * 2}
             disabled={disabled}
             value={content}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
               setContent(event.target.value);
               setDraft((val) => ({ ...val, content: event.target.value }));
             }}

@@ -75,7 +75,6 @@ export default function Articles({
             top: 0,
             left: 0,
             width: '100%',
-            // Height: `${item.size}px`,
             transform: `translateY(${
               item.start - rowVirtualizer.options.scrollMargin
             }px)`,
